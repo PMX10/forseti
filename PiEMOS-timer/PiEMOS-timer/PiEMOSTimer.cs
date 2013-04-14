@@ -5,14 +5,21 @@ using System.Threading;
 
 namespace Forseti
 {
-	public class PiEMOSTimer
+	public class PiEMOSTimer : HashPacketListener
 	{
 		private HashConnection conn;
 		private string piemosAddress;
+
+		private const int AutonomousStageLength = 20; //seconds
 		
+		private const int TeleopStageLength = 100; //seconds
+		
+		private long fieldTime = 0;
+						
 		public PiEMOSTimer (string piemosAddress, int listen, int send)
 		{
 			this.conn = new HashConnection(listen, send);
+			this.conn.AddHashConPacketListener(this);
 			this.piemosAddress = piemosAddress;
 		}
 		
@@ -38,16 +45,56 @@ namespace Forseti
 			{
 				// Heartbeat
 				long time = DateTime.Now.Ticks / TimeSpan.TicksPerSecond - startTime;
-				Hashtable t = new Hashtable();
-				t["Type"] = "Health";
-				t["Uptime"] = time;
-				//				Console.WriteLine("time=" + time);
-				this.conn.SendTable(t, this.piemosAddress);
+//				Hashtable t = new Hashtable();
+//				t["Type"] = "Health";
+//				t["Uptime"] = time;
+				Console.WriteLine("time=" + time);
+//				this.conn.SendTable(t, this.piemosAddress);
+
+
+				// match control
+				matchTime = (byte) time;
+				if( matchTime < AutonomousStageLength)
+				{
+					this.stage = "Autonomous";
+					autonomous = true;
+					teleop = false;
+				} else if (matchTime < TeleopStageLength)
+				{
+					this.stage = "Teleop";
+					autonomous = false;
+					teleop = true;
+				}
+				robot = true;
+				halt = false;
+				SendControlData();
+				
 				Thread.Sleep (500);
 			}
 		}
 		
-		private void Send(Hashtable t)
+		public void HashPacketReceived (Hashtable t, string senderAddress)
+		{
+			if (t.ContainsKey("Health"))
+			{
+				Hashtable payload = (Hashtable) t["Health"];
+				string piemos_state = (string)payload["PiEMOSState"];
+				if(piemos_state.Equals ("MatchStartWaiting"))
+				{
+					Console.WriteLine ("Config Received!!!!!!!!");
+//					done = true;
+				}
+			}
+		}
+		
+		private void Send(string name, Hashtable t)
+		{
+			Hashtable wrapper = new Hashtable();
+			wrapper[name] = t;
+			this.conn.SendTable(wrapper, this.piemosAddress);
+		}
+		
+		private void Send( Hashtable t)
 		{
 			this.conn.SendTable(t, this.piemosAddress);
 		}
@@ -66,7 +113,7 @@ namespace Forseti
 			ArrayList fieldObjects = new ArrayList();//fieldObjectsText.text.arrayListFromJson();
 			table.Add("FieldObjects", fieldObjects);
 			
-			Send(table);
+			Send("ConfigData",table);
 		}
 		
 		void SendCommand(string cmd){
@@ -100,7 +147,7 @@ namespace Forseti
 			
 			table.Add("Match", match);
 			
-			Send(table);
+			Send("ControlData", table);
 		}
 	}
 }

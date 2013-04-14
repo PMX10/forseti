@@ -9,7 +9,7 @@ namespace Forseti
 	{
 		public static void Main (string[] args)
 		{
-			Console.WriteLine ("Hello World!");
+			Console.WriteLine ("PiEMOS-Configer starting...");
 
 			Dictionary<int, string> filenames = new Dictionary<int, string>();
 			
@@ -24,7 +24,7 @@ namespace Forseti
 				string config = File.ReadAllText(filenames[i]);
 				
 				PiEMOSConfiger configer = new PiEMOSConfiger("10.20.34.10" + i, 6000 + i, 6000 + i, config);
-				
+
 				configer.Start();
 //				while(true)
 //				{

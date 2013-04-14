@@ -19,7 +19,7 @@ namespace Forseti
 			this.piemosAddress = piemosAddress;
 			this.config = config;
 			this.done = false;
-//			this.SendCommand ("Reset");
+			//this.SendCommand ("Reset");
 		}
 
 		public bool Running
