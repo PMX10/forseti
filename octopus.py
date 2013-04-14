@@ -481,7 +481,8 @@ def main():
     #out_addr = ('10.10.67.197', 8000)
 
     in_addr = ('', 8000)
-    out_addr = ('10.42.0.1', 8000)
+    #out_addr = ('10.42.0.1', 8000)
+    out_addr = ('10.20.34.100', 8000)
 
     Server(in_addr, out_addr).serve_forever()
 

@@ -26,6 +26,7 @@ namespace Forseti
 				PiEMOSConfiger configer = new PiEMOSConfiger("10.20.34.10" + i, 6000 + i, 6000 + i, config);
 
 				configer.Start();
+				
 //				while(true)
 //				{
 //					Console.WriteLine ("Sending");

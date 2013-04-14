@@ -29,6 +29,14 @@ namespace Forseti
 		{
 			Console.WriteLine ("tag read: goal=" + goal + ",\t tag=" + tag);
 			boxes[current++] = 1;
+			if(current == 20)
+			{
+				current = 0;
+				for(int i = 0; i<20; i++)
+				{
+					boxes.Add(0);
+				}
+			}
 			this.flags.setFlags(this.boxes);
 		}
 	}

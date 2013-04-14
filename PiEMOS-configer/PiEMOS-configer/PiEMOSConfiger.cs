@@ -85,6 +85,10 @@ namespace Forseti
 			this.conn.SendTable(t, this.piemosAddress);
 		}
 
+		public bool ConfigIsBlueAlliance;
+		public int ConfigTeamNumber;
+		public string ConfigTeamName;
+
 		public void SendConfigData(string configFile){
 			string txt = configFile;//configText.text;
 			txt = txt.Replace("\r", "").Replace("\n", "").Replace("\t", "");
@@ -92,7 +96,7 @@ namespace Forseti
 			Hashtable table = new Hashtable();
 			
 			table.Add("ConfigFile", txt);
-			table.Add("IsBlueAlliance", true);
+			table.Add("IsBlueAlliance", false);
 			table.Add("TeamNumber", 99);
 			table.Add("TeamName", "Jank");
 			

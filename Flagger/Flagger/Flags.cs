@@ -10,6 +10,8 @@ namespace Forseti
 		
 		private HashConnection conn;
 		private string flagAddress;
+
+		private Hashtable lastTable;
 		
 		public Flags(
 			Master master,
@@ -46,8 +48,15 @@ namespace Forseti
 					this.conn.SendTable(t, this.flagAddress);
 //					Console.WriteLine("time=" + time);
 				}
+				if (this.lastTable != null)
+				{
+					if (this.flagAddress != null)
+					{
+						this.conn.SendTable(this.lastTable, this.flagAddress);
+					}
+				}
 				
-				Thread.Sleep (500);
+				Thread.Sleep (50);
 				
 			}
 		}
@@ -57,6 +66,7 @@ namespace Forseti
 			Hashtable t = new Hashtable();
 			t["Type"] = "Fieldgoals";
 			t["FieldGoals"] = goals;
+			this.lastTable = t;
 			if (this.flagAddress != null)
 			{
 				this.conn.SendTable(t, this.flagAddress);

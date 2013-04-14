@@ -12,7 +12,9 @@ namespace Forseti
 
 		private const int AutonomousStageLength = 20; //seconds
 		
-		private const int TeleopStageLength = 100; //seconds
+		private const int TeleopStageEnd = 100; //seconds
+
+		private const int MatchEnd = 120;
 		
 		private long fieldTime = 0;
 						
@@ -54,19 +56,25 @@ namespace Forseti
 
 				// match control
 				matchTime = (byte) time;
+				robot = true;
+				halt = false;
 				if( matchTime < AutonomousStageLength)
 				{
 					this.stage = "Autonomous";
 					autonomous = true;
 					teleop = false;
-				} else if (matchTime < TeleopStageLength)
+				} else if (matchTime < TeleopStageEnd)
 				{
 					this.stage = "Teleop";
 					autonomous = false;
 					teleop = true;
+				} else if (matchTime > MatchEnd)
+				{
+					this.stage = "Scoring";
+					autonomous = false;
+					teleop = false;
+					robot = false;
 				}
-				robot = true;
-				halt = false;
 				SendControlData();
 				
 				Thread.Sleep (500);

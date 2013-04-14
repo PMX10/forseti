@@ -37,7 +37,7 @@ namespace Forseti
             {
                 for(int i = 0; i< 5; i++)
                 {
-                    flags.setFlagPosition(i, 1);
+                    flags.setFlagPosition(i, 0);
                 }
             }
                     
