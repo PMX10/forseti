@@ -7,6 +7,9 @@ import cmd
 import atexit
 import random
 
+MULTIPLY = 2
+ADD = 1
+
 class BoxScanCommander(cmd.Cmd):
 
     def __init__(self, *args, **kwargs):
@@ -98,7 +101,18 @@ class BoxScanCommander(cmd.Cmd):
             print('Could not open "{}".'.format(filename))
             print('Received error {}.'.format(e))
 
+    def convert_effects(self):
+        for read in self.reads:
+            if u'effect' in read:
+                if read[u'effect'] == 'multiply':
+                    read[u'objectType'] = MULTIPLY
+                    del read[u'effect']
+                elif read[u'effect'] == 'add':
+                    read[u'objectType'] = ADD
+                    del read[u'effect']
+
     def do_save(self, filename):
+        self.convert_effects()
         try:
             with open(filename, 'w') as f:
                 json.dump(self.current_reads, f, indent=True)
@@ -120,14 +134,14 @@ class BoxScanCommander(cmd.Cmd):
     def do_randomize(self, rest=''):
         effects = []
         for i in range(5):
-            this_goal_effects = ['multiply'] + ['add'] * 4
+            this_goal_effects = [MULTIPLY] + [ADD] * 4
             random.shuffle(this_goal_effects)
             effects.extend(this_goal_effects)
         effect_map = {}
         for read in self.current_reads:
             if read[u'objectId'] not in effect_map.keys():
                 effect_map[read[u'objectId']] = effects.pop()
-            read[u'effect'] = effect_map[read[u'objectId']]
+            read[u'objectType'] = effect_map[read[u'objectId']]
 
     def grizzly_read(self, reactor, idx, tag_id):
         print('.')
