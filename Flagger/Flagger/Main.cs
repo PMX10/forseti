@@ -30,10 +30,21 @@ namespace Forseti
 //				Thread.Sleep (500);
 //			}
 			
-			FlagController controller = new FlagController (flags);
+			FlagController controller = new FlagController (flags, mapping);
 			GoalReaders readers = new GoalReaders (null, controller, 8000, 8000);
 			Console.WriteLine ("Running...");
 			readers.Run ();
+//			Goals g = new Goals();
+//			g.PushBox(0, 1);
+//			g.PushBox(0, 1);
+//			g.PushBox(0, 1);
+//			g.PushBox(0, 1);
+//
+//			g.PushBox(1, 2);
+//			g.PushBox(2, 1);
+//			
+//			Console.WriteLine (MiniJSON.jsonEncode(g.toArrayList()));
+
 		}
 	}
 }

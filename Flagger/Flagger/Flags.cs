@@ -12,7 +12,7 @@ namespace Forseti
 		private string flagAddress;
 
 		private Hashtable lastTable;
-		
+				
 		public Flags(
 			Master master,
 			int listenPort,
