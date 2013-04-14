@@ -11,15 +11,11 @@ namespace Forseti
 		private HashConnection conn;
 		private string flagAddress;
 		
-		private Master master;
-		
 		public Flags(
 			Master master,
 			int listenPort,
 			int sendPort)
 		{
-			this.master = master;
-//			this.master.AddFieldGoalsChangeListener(this);
 			this.conn = new HashConnection(listenPort, sendPort);
 			this.conn.AddHashConPacketListener(this);
 		}

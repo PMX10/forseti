@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flagger", "Flagger\Flagger.csproj", "{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiEMOS-configer", "PiEMOS-configer\PiEMOS-configer.csproj", "{60F4404D-EBAF-4542-A37C-1DF370BE1CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forseti-lib", "..\Forseti-lib\Forseti-lib\Forseti-lib.csproj", "{17DDD7AD-2289-4945-A150-D5609F591C20}"
 EndProject
@@ -15,12 +15,12 @@ Global
 		{17DDD7AD-2289-4945-A150-D5609F591C20}.Debug|x86.Build.0 = Debug|x86
 		{17DDD7AD-2289-4945-A150-D5609F591C20}.Release|x86.ActiveCfg = Release|x86
 		{17DDD7AD-2289-4945-A150-D5609F591C20}.Release|x86.Build.0 = Release|x86
-		{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}.Debug|x86.ActiveCfg = Debug|x86
-		{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}.Debug|x86.Build.0 = Debug|x86
-		{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}.Release|x86.ActiveCfg = Release|x86
-		{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}.Release|x86.Build.0 = Release|x86
+		{60F4404D-EBAF-4542-A37C-1DF370BE1CCE}.Debug|x86.ActiveCfg = Debug|x86
+		{60F4404D-EBAF-4542-A37C-1DF370BE1CCE}.Debug|x86.Build.0 = Debug|x86
+		{60F4404D-EBAF-4542-A37C-1DF370BE1CCE}.Release|x86.ActiveCfg = Release|x86
+		{60F4404D-EBAF-4542-A37C-1DF370BE1CCE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Flagger\Flagger.csproj
+		StartupItem = PiEMOS-configer\PiEMOS-configer.csproj
 	EndGlobalSection
 EndGlobal

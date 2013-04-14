@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}</ProjectGuid>
+    <ProjectGuid>{4F3F5AC8-96A2-4BA1-A19B-F8B2B38A073F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Flagger</RootNamespace>
-    <AssemblyName>Flagger</AssemblyName>
+    <RootNamespace>MaestroDriver</RootNamespace>
+    <AssemblyName>MaestroDriver</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
@@ -32,14 +32,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Bytecode">
+      <HintPath>Bytecode.dll</HintPath>
+    </Reference>
+    <Reference Include="FirmwareUpgrade">
+      <HintPath>FirmwareUpgrade.dll</HintPath>
+    </Reference>
+    <Reference Include="Sequencer">
+      <HintPath>Sequencer.dll</HintPath>
+    </Reference>
+    <Reference Include="UsbWrapper">
+      <HintPath>UsbWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Usc">
+      <HintPath>Usc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Master.cs" />
-    <Compile Include="GoalReader.cs" />
-    <Compile Include="Flags.cs" />
-    <Compile Include="FlagController.cs" />
+    <Compile Include="CubeRouteField.cs" />
+    <Compile Include="GoalFlags.cs" />
+    <Compile Include="GoalLightsConnection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

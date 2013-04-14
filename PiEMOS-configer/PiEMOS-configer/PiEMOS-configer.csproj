@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}</ProjectGuid>
+    <ProjectGuid>{60F4404D-EBAF-4542-A37C-1DF370BE1CCE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Flagger</RootNamespace>
-    <AssemblyName>Flagger</AssemblyName>
+    <RootNamespace>PiEMOSconfiger</RootNamespace>
+    <AssemblyName>PiEMOS-configer</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
@@ -36,10 +36,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Master.cs" />
-    <Compile Include="GoalReader.cs" />
-    <Compile Include="Flags.cs" />
-    <Compile Include="FlagController.cs" />
+    <Compile Include="PiEMOSConfiger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D82DD7A7-F0BB-4B63-8825-0C7BF517F73D}</ProjectGuid>
+    <ProjectGuid>{17DDD7AD-2289-4945-A150-D5609F591C20}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Flagger</RootNamespace>
-    <AssemblyName>Flagger</AssemblyName>
+    <RootNamespace>Forsetilib</RootNamespace>
+    <AssemblyName>Forseti-lib</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>True</DebugSymbols>
@@ -34,18 +34,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Master.cs" />
-    <Compile Include="GoalReader.cs" />
-    <Compile Include="Flags.cs" />
-    <Compile Include="FlagController.cs" />
+    <Compile Include="HashConnection.cs" />
+    <Compile Include="HashPacketListener.cs" />
+    <Compile Include="MiniJSON.cs" />
+    <Compile Include="UDPSocket.cs" />
+    <Compile Include="Main.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\..\Forseti-lib\Forseti-lib\Forseti-lib.csproj">
-      <Project>{17DDD7AD-2289-4945-A150-D5609F591C20}</Project>
-      <Name>Forseti-lib</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

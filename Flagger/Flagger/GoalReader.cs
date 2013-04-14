@@ -13,8 +13,8 @@ namespace Forseti
 						
 		private Master master;
 		private FlagController controller;
-		
-		private Dictionary<string, int> goalStringToPosition;
+
+		private uint prevTag;
 		
 		public GoalReaders(Master master,FlagController controller, int listenPort, int sendPort)
 		{
@@ -22,20 +22,9 @@ namespace Forseti
 			this.controller = controller;
 			this.conn = new HashConnection(listenPort, sendPort);
 			this.conn.AddHashConPacketListener(this);
-			
 			//this.previousSentTag = 999;
 			this.Running = false;
-			this.goalStringToPosition = new Dictionary<string, int>();
-			this.goalStringToPosition["A"] = 0;
-			this.goalStringToPosition["B"] = 1;
-			this.goalStringToPosition["C"] = 2;
-			this.goalStringToPosition["D"] = 3;
-			this.goalStringToPosition["VerifyA"] = 10;
-			this.goalStringToPosition["VerifyB"] = 11;
-			this.goalStringToPosition["VerifyC"] = 12;
-			this.goalStringToPosition["VerifyD"] = 13;
-			this.goalStringToPosition["Dispense"] = 8;
-			this.goalStringToPosition["Unknown"] = 9;
+			prevTag = 0;
 		}
 		
 		public bool Running
@@ -74,7 +63,7 @@ namespace Forseti
 		
 		public void HashPacketReceived(Hashtable t, string senderAddress)
 		{
-			//            Console.WriteLine ("received from address=" + senderAddress + ", table=" + MiniJSON.jsonEncode(t));
+//			Console.WriteLine ("received from address=" + senderAddress + ", table=" + MiniJSON.jsonEncode(t));
 			this.readerAddress = senderAddress;
 			if (t.ContainsKey("Type") && t["Type"].Equals("Health"))
 			{
@@ -134,8 +123,11 @@ namespace Forseti
 		
 		private void NotifyListeners(string position, uint tag)
 		{
-			this.controller.TagRead(position, tag);
-			
+			if (prevTag != tag)
+			{
+				this.controller.TagRead(position, tag);
+			}
+			prevTag = tag;
 //			GoalReadEvent ev = new GoalReadEvent(position, tag);
 //			foreach (IGoalReaderListener l  in this.master.GoalReaderListeners)
 //			{
