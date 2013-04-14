@@ -41,6 +41,8 @@
     <Compile Include="UDPSocket.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="BoxMapping.cs" />
+    <Compile Include="ITQueries.cs" />
+    <Compile Include="Team.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,13 +28,23 @@ namespace Forseti
 			return "Unknown";
 		}
 
-		public BoxMapping Load ()
+		public ArrayList GetObjects ()
 		{
 			string filename = "../../../../resources/field_mapping.json";
-			System.IO.StreamReader file = new System.IO.StreamReader (filename);
-			object data = MiniJSON.jsonDecode (file.ReadToEnd ());
 			try {
-				ArrayList list = (ArrayList)data;
+				System.IO.StreamReader file = new System.IO.StreamReader (filename);
+				object data = MiniJSON.jsonDecode (file.ReadToEnd ());
+				return (ArrayList)data;
+			} catch (InvalidCastException ex) {
+				Console.WriteLine ("Could not parse " + filename + ", encountered error " + ex);
+				return new ArrayList ();
+			}
+		}
+
+		public BoxMapping Load ()
+		{
+			try {
+				ArrayList list = GetObjects ();
 				foreach (object read_obj in list) {
 					Hashtable read = (Hashtable)read_obj;
 					if (read.Contains ("tagId") && read.Contains ("objectType")) {

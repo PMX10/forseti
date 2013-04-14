@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Forseti
@@ -11,22 +12,29 @@ namespace Forseti
 		{
 			Console.WriteLine ("PiEMOS-Configer starting...");
 
-			Dictionary<int, string> filenames = new Dictionary<int, string>();
-			
-			filenames[1] = "working.cfg";
-			filenames[2] = "working.cfg";
-			filenames[3] = "working.cfg";
-			filenames[4] = "working.cfg";
+			int match = 1;
 
-			for(int i = 1; i<=4; i++)
-			{
-//				string config = File.ReadAllText("" + i + ".cfg");
-				string config = File.ReadAllText(filenames[i]);
-				
-				PiEMOSConfiger configer = new PiEMOSConfiger("10.20.34.10" + i, 6000 + i, 6000 + i, config);
+//			Dictionary<Team, string> configs = new Dictionary<Team, string> ();
 
-				configer.Start();
+			List<Team> teams = ITQueries.GetMatch (match);
+
+//			foreach (Team t in teams) {
+//				configs [t] = ITQueries.GetTeamConfig (t.number);
+//			}
+
+			for (int i = 1; i<=4; i++) {
+				string config = ITQueries.GetTeamConfig (i);
+				Hashtable teamInfo = new Hashtable ();
+				teamInfo.Add ("IsBlueAlliace", i <= 2);
+				teamInfo.Add ("TeamNumber", teams [i].number);
+				teamInfo.Add ("TeamName", teams [i].name);
+
 				
+				PiEMOSConfiger configer = new PiEMOSConfiger ("10.20.34.10" + i, 6000 + i, 6000 + i, config);
+
+				configer.TeamInfo = teamInfo;
+
+				configer.Start ();
 //				while(true)
 //				{
 //					Console.WriteLine ("Sending");
