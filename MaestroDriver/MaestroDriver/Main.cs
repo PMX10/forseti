@@ -33,16 +33,16 @@ namespace Forseti
 
             CubeRouteField field = new CubeRouteField(goals);
 
-//            foreach (GoalFlags flags in goals)
-//            {
-//                for(int i = 0; i< 5; i++)
-//                {
-//                    flags.setFlagPosition(i, 0);
-//                }
-//            }
+            foreach (GoalFlags flags in goals)
+            {
+                for(int i = 0; i< 5; i++)
+                {
+                    flags.setFlagPosition(i, 1);
+                }
+            }
                     
 
-            GoalLightsConnection conn = new GoalLightsConnection(field, "127.0.0.1", 9000, 9000);
+            GoalLightsConnection conn = new GoalLightsConnection(field, "10.20.34.100", 9000, 9000);
 //            GoalLightsConnection conn = new GoalLightsConnection(null, "127.0.0.1", 9001, 9000);
             Console.WriteLine ("Running...");
             conn.Run ();

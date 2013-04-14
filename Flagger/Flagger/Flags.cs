@@ -44,7 +44,7 @@ namespace Forseti
 					Hashtable t = new Hashtable();
 					t["Uptime"] = time;
 					this.conn.SendTable(t, this.flagAddress);
-					Console.WriteLine("time=" + time);
+//					Console.WriteLine("time=" + time);
 				}
 				
 				Thread.Sleep (500);
@@ -66,7 +66,7 @@ namespace Forseti
 		public void HashPacketReceived(Hashtable t, string senderAddress)
 		{
 			this.flagAddress = senderAddress;
-			Console.WriteLine("Received packet from Flags=" + MiniJSON.jsonEncode(t));
+//			Console.WriteLine("Received packet from Flags=" + MiniJSON.jsonEncode(t));
 		}
 	}
 }

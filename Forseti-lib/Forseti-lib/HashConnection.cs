@@ -42,7 +42,7 @@ namespace Forseti
 		
 		public void SendTable(Hashtable table, string address)
 		{
-			Console.WriteLine ("Sending=" + MiniJSON.jsonEncode(table));
+//			Console.WriteLine ("Sending=" + MiniJSON.jsonEncode(table));
 			byte[] data = System.Text.Encoding.ASCII.GetBytes(MiniJSON.jsonEncode(table));
 			this.client.Send(data, address);
 		}
