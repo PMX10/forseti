@@ -90,12 +90,6 @@ namespace Forseti
 			string txt = configFile;//configText.text;
 			txt = txt.Replace ("\r", "").Replace ("\n", "").Replace ("\t", "");
 			
-//			Hashtable table = new Hashtable();
-//			
-//			table.Add("ConfigFile", txt);
-//			table.Add("IsBlueAlliance", true);
-//			table.Add("TeamNumber", 99);
-//			table.Add("TeamName", "Jank");
 			Hashtable table = teamInfo;
 			table.Add ("ConfigFile", txt);
 			
