@@ -40,6 +40,7 @@
     <Compile Include="MiniJSON.cs" />
     <Compile Include="UDPSocket.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="BoxMapping.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

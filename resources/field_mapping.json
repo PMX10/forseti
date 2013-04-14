@@ -1,0 +1,962 @@
+[
+ {
+  "uid": "2c5af377", 
+  "objectId": 6, 
+  "tagId": "744158071", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4f2917", 
+  "objectId": 6, 
+  "tagId": "743385367", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c5a138f", 
+  "objectId": 6, 
+  "tagId": "744100751", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d7ed977", 
+  "objectId": 6, 
+  "tagId": "763287927", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d68eedf", 
+  "objectId": 6, 
+  "tagId": "761851615", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d66ccf7", 
+  "objectId": 6, 
+  "tagId": "761711863", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984b687", 
+  "objectId": 10, 
+  "tagId": "428127879", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d66ea7f", 
+  "objectId": 10, 
+  "tagId": "761719423", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1985803f", 
+  "objectId": 10, 
+  "tagId": "428179519", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d707ec7", 
+  "objectId": 10, 
+  "tagId": "762347207", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d7187d7", 
+  "objectId": 10, 
+  "tagId": "762415063", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d691e17", 
+  "objectId": 10, 
+  "tagId": "761863703", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d865897", 
+  "objectId": 0, 
+  "tagId": "763779223", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d887f87", 
+  "objectId": 0, 
+  "tagId": "763920263", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8675af", 
+  "objectId": 0, 
+  "tagId": "763786671", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4fab1f", 
+  "objectId": 0, 
+  "tagId": "743418655", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c43d57f", 
+  "objectId": 0, 
+  "tagId": "742643071", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c433747", 
+  "objectId": 0, 
+  "tagId": "742602567", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71cd37", 
+  "objectId": 9, 
+  "tagId": "762432823", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d68d407", 
+  "objectId": 9, 
+  "tagId": "761844743", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d85c2ff", 
+  "objectId": 9, 
+  "tagId": "763740927", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d7e48ef", 
+  "objectId": 9, 
+  "tagId": "763250927", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71d30f", 
+  "objectId": 9, 
+  "tagId": "762434319", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "198577c7", 
+  "objectId": 9, 
+  "tagId": "428177351", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71647f", 
+  "objectId": 8, 
+  "tagId": "762406015", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6a4847", 
+  "objectId": 8, 
+  "tagId": "761940039", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d877bb7", 
+  "objectId": 8, 
+  "tagId": "763853751", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c3b22cf", 
+  "objectId": 8, 
+  "tagId": "742073039", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c5051bf", 
+  "objectId": 8, 
+  "tagId": "743461311", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4ccb77", 
+  "objectId": 8, 
+  "tagId": "743230327", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6df15f", 
+  "objectId": 1, 
+  "tagId": "762179935", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d834527", 
+  "objectId": 1, 
+  "tagId": "763577639", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c3ac30f", 
+  "objectId": 1, 
+  "tagId": "742048527", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d711767", 
+  "objectId": 1, 
+  "tagId": "762386279", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d85822f", 
+  "objectId": 1, 
+  "tagId": "763724335", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d80cca7", 
+  "objectId": 1, 
+  "tagId": "763415719", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c49bfb7", 
+  "objectId": 2, 
+  "tagId": "743030711", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c439d3f", 
+  "objectId": 2, 
+  "tagId": "742628671", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4cd95f", 
+  "objectId": 2, 
+  "tagId": "743233887", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d821dcf", 
+  "objectId": 2, 
+  "tagId": "763502031", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c432b3f", 
+  "objectId": 2, 
+  "tagId": "742599487", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984bcdf", 
+  "objectId": 2, 
+  "tagId": "428129503", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c5072df", 
+  "objectId": 7, 
+  "tagId": "743469791", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71c46f", 
+  "objectId": 7, 
+  "tagId": "762430575", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "19855907", 
+  "objectId": 7, 
+  "tagId": "428169479", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71dc0f", 
+  "objectId": 7, 
+  "tagId": "762436623", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c56400f", 
+  "objectId": 7, 
+  "tagId": "743849999", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8e5667", 
+  "objectId": 7, 
+  "tagId": "764302951", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4ff2df", 
+  "objectId": 3, 
+  "tagId": "743437023", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8483f7", 
+  "objectId": 3, 
+  "tagId": "763659255", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984acdf", 
+  "objectId": 3, 
+  "tagId": "428125407", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c3a71a7", 
+  "objectId": 3, 
+  "tagId": "742027687", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c43fb4f", 
+  "objectId": 3, 
+  "tagId": "742652751", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6947f7", 
+  "objectId": 3, 
+  "tagId": "761874423", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6fb2b7", 
+  "objectId": 5, 
+  "tagId": "762294967", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71519f", 
+  "objectId": 5, 
+  "tagId": "762401183", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d89fc3f", 
+  "objectId": 5, 
+  "tagId": "764017727", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d820187", 
+  "objectId": 5, 
+  "tagId": "763494791", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "19855157", 
+  "objectId": 5, 
+  "tagId": "428167511", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8913d7", 
+  "objectId": 5, 
+  "tagId": "763958231", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c50d837", 
+  "objectId": 14, 
+  "tagId": "743495735", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71036f", 
+  "objectId": 14, 
+  "tagId": "762381167", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71fae7", 
+  "objectId": 14, 
+  "tagId": "762444519", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c49dfcf", 
+  "objectId": 14, 
+  "tagId": "743038927", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "198550f7", 
+  "objectId": 14, 
+  "tagId": "428167415", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d860187", 
+  "objectId": 14, 
+  "tagId": "763756935", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d7e9cbf", 
+  "objectId": 15, 
+  "tagId": "763272383", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c3ad0f7", 
+  "objectId": 15, 
+  "tagId": "742052087", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4a14ff", 
+  "objectId": 15, 
+  "tagId": "743052543", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d888077", 
+  "objectId": 15, 
+  "tagId": "763920503", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c53190f", 
+  "objectId": 15, 
+  "tagId": "743643407", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4ce877", 
+  "objectId": 15, 
+  "tagId": "743237751", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4a196f", 
+  "objectId": 12, 
+  "tagId": "743053679", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c389457", 
+  "objectId": 12, 
+  "tagId": "741905495", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d818f47", 
+  "objectId": 12, 
+  "tagId": "763465543", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d71a0c7", 
+  "objectId": 12, 
+  "tagId": "762421447", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8660f7", 
+  "objectId": 12, 
+  "tagId": "763781367", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d85760f", 
+  "objectId": 12, 
+  "tagId": "763721231", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d67c027", 
+  "objectId": 11, 
+  "tagId": "761774119", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c694c4f", 
+  "objectId": 11, 
+  "tagId": "745098319", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d87c7bf", 
+  "objectId": 11, 
+  "tagId": "763873215", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984d21f", 
+  "objectId": 11, 
+  "tagId": "428134943", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d719117", 
+  "objectId": 11, 
+  "tagId": "762417431", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4f51d7", 
+  "objectId": 11, 
+  "tagId": "743395799", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984a53f", 
+  "objectId": 13, 
+  "tagId": "428123455", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d846057", 
+  "objectId": 13, 
+  "tagId": "763650135", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8e65ef", 
+  "objectId": 13, 
+  "tagId": "764306927", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c69534f", 
+  "objectId": 13, 
+  "tagId": "745100111", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "198553d7", 
+  "objectId": 13, 
+  "tagId": "428168151", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "198568e7", 
+  "objectId": 13, 
+  "tagId": "428173543", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d69627f", 
+  "objectId": 19, 
+  "tagId": "761881215", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "19856f6f", 
+  "objectId": 19, 
+  "tagId": "428175215", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984d49f", 
+  "objectId": 19, 
+  "tagId": "428135583", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6ff467", 
+  "objectId": 19, 
+  "tagId": "762311783", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d7203bf", 
+  "objectId": 19, 
+  "tagId": "762446783", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984d707", 
+  "objectId": 19, 
+  "tagId": "428136199", 
+  "effect": "multiply", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d640dbf", 
+  "objectId": 18, 
+  "tagId": "761531839", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6f802f", 
+  "objectId": 18, 
+  "tagId": "762282031", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d7041d7", 
+  "objectId": 18, 
+  "tagId": "762331607", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "19856aef", 
+  "objectId": 18, 
+  "tagId": "428174063", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d84cc27", 
+  "objectId": 18, 
+  "tagId": "763677735", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d68dfd7", 
+  "objectId": 18, 
+  "tagId": "761847767", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c50870f", 
+  "objectId": 16, 
+  "tagId": "743474959", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d857577", 
+  "objectId": 16, 
+  "tagId": "763721079", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d84ded7", 
+  "objectId": 16, 
+  "tagId": "763682519", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d8656df", 
+  "objectId": 16, 
+  "tagId": "763778783", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d82658f", 
+  "objectId": 16, 
+  "tagId": "763520399", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984d39f", 
+  "objectId": 16, 
+  "tagId": "428135327", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4faaef", 
+  "objectId": 17, 
+  "tagId": "743418607", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d88db87", 
+  "objectId": 17, 
+  "tagId": "763943815", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2c4f37d7", 
+  "objectId": 17, 
+  "tagId": "743389143", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d716ea7", 
+  "objectId": 17, 
+  "tagId": "762408615", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6c18af", 
+  "objectId": 17, 
+  "tagId": "762058927", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d68a9ff", 
+  "objectId": 17, 
+  "tagId": "761833983", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6aac07", 
+  "objectId": 20, 
+  "tagId": "761965575", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6a6faf", 
+  "objectId": 20, 
+  "tagId": "761950127", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d865877", 
+  "objectId": 20, 
+  "tagId": "763779191", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d871337", 
+  "objectId": 20, 
+  "tagId": "763826999", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "1984d397", 
+  "objectId": 20, 
+  "tagId": "428135319", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }, 
+ {
+  "uid": "2d6b4e97", 
+  "objectId": 20, 
+  "tagId": "762007191", 
+  "effect": "add", 
+  "readerType": "Grizzly", 
+  "objectType": 1
+ }
+]
