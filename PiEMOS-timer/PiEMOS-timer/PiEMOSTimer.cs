@@ -10,11 +10,15 @@ namespace Forseti
 		private HashConnection conn;
 		private string piemosAddress;
 
+		private const int pregameTimeLength = 5;
+
 		private const int AutonomousStageLength = 20; //seconds
+
+		private const int AutoPauseTime = 5;
 		
 		private const int TeleopStageEnd = 100; //seconds
 
-		private const int MatchEnd = 120;
+		private const int MatchEnd = 130;
 		
 		private long fieldTime = 0;
 						
@@ -58,18 +62,37 @@ namespace Forseti
 				matchTime = (byte) time;
 				robot = true;
 				halt = false;
-				if( matchTime < AutonomousStageLength)
+				if (matchTime < pregameTimeLength)
 				{
+					this.stage = "Setup";
+					autonomous = true;
+					teleop = false;
+					robot = false;
+				}else if( matchTime < (AutonomousStageLength + pregameTimeLength))
+				{
+					Console.WriteLine ("Autonomous");
 					this.stage = "Autonomous";
 					autonomous = true;
 					teleop = false;
-				} else if (matchTime < TeleopStageEnd)
+					robot = true;
+				}else if (matchTime < (AutonomousStageLength + pregameTimeLength + AutoPauseTime))
 				{
+					Console.WriteLine ("Autonomous");
+					this.stage = "Autonomous";
+					autonomous = false;
+					teleop = false;
+					robot = false;
+				}
+				else if (matchTime < (AutonomousStageLength + pregameTimeLength + AutoPauseTime + TeleopStageEnd))
+				{
+					Console.WriteLine ("Teleop");
 					this.stage = "Teleop";
 					autonomous = false;
 					teleop = true;
+					robot = true;
 				} else if (matchTime > MatchEnd)
 				{
+					Console.WriteLine ("End");
 					this.stage = "Scoring";
 					autonomous = false;
 					teleop = false;
@@ -77,7 +100,7 @@ namespace Forseti
 				}
 				SendControlData();
 				
-				Thread.Sleep (500);
+				Thread.Sleep (250);
 			}
 		}
 		
@@ -89,7 +112,7 @@ namespace Forseti
 				string piemos_state = (string)payload["PiEMOSState"];
 				if(piemos_state.Equals ("MatchStartWaiting"))
 				{
-					Console.WriteLine ("Config Received!!!!!!!!");
+//					Console.WriteLine ("Config Received!!!!!!!!");
 //					done = true;
 				}
 			}

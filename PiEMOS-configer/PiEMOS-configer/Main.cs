@@ -12,27 +12,45 @@ namespace Forseti
 		{
 			Console.WriteLine ("PiEMOS-Configer starting...");
 
-			int match = 1;
+			Dictionary<int, string> filenames = new Dictionary<int, string>();
 
-//			Dictionary<Team, string> configs = new Dictionary<Team, string> ();
+			filenames[1] = "15";
+			filenames[2] = "working.cfg";
+			filenames[3] = "30";
+			filenames[4] = "29";
 
-			List<Team> teams = ITQueries.GetMatch (match);
+			Dictionary<int, bool> blues = new Dictionary<int, bool>();
+			blues[1] = true;
+			blues[2] = true;
+			blues[3] = false;
+			blues[4] = false;
 
-//			foreach (Team t in teams) {
-//				configs [t] = ITQueries.GetTeamConfig (t.number);
-//			}
+			Dictionary<int, string> names = new Dictionary<int, string>();
+			names[1] = "Impact";
+			names[2] = "Ell Cerito";
+			names[3] = "Lighthouse";
+			names[4] = "Oakland Tech";
 
-			for (int i = 1; i<=4; i++) {
-				string config = ITQueries.GetTeamConfig (i);
-				Hashtable teamInfo = new Hashtable ();
-				teamInfo.Add ("IsBlueAlliace", i <= 2);
-				teamInfo.Add ("TeamNumber", teams [i].number);
-				teamInfo.Add ("TeamName", teams [i].name);
+			Dictionary<int, int> numbers = new Dictionary<int, int>();
+			numbers[1] = 15;
+			numbers[2] = 28;
+			numbers[3] = 30;
+			numbers[4] = 29;
+			//blues[1]
 
-				
-				PiEMOSConfiger configer = new PiEMOSConfiger ("10.20.34.10" + i, 6000 + i, 6000 + i, config);
 
-				configer.TeamInfo = teamInfo;
+			for(int i = 1; i<=4; i++)
+			{
+//				string config = File.ReadAllText("" + i + ".cfg");
+				string config = File.ReadAllText(filenames[i]);
+
+				PiEMOSConfiger configer = new PiEMOSConfiger("10.20.34.10" + i, 6000 + i, 6000 + i, config);
+
+				configer.ConfigIsBlueAlliance = blues[i];
+				configer.ConfigTeamName = names[i];
+
+
+				configer.Start();
 
 				configer.Start ();
 //				while(true)

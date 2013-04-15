@@ -1,18 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MaestroDriver/Main.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MaestroDriver/GoalLightsConnection.cs">
     <Files>
-      <File FileName="MaestroDriver/Main.cs" Line="17" Column="1" />
-      <File FileName="MaestroDriver/GoalLightsConnection.cs" Line="5" Column="1" />
+      <File FileName="MaestroDriver/Main.cs" Line="45" Column="65" />
+      <File FileName="MaestroDriver/GoalLightsConnection.cs" Line="79" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Forseti-lib" expanded="True" />
           <Node name="MaestroDriver" expanded="True">
-            <Node name="Main.cs" selected="True" />
+            <Node name="GoalLightsConnection.cs" selected="True" />
           </Node>
         </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

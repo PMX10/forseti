@@ -1,16 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PiEMOS-timer/Main.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PiEMOS-timer/PiEMOSTimer.cs">
     <Files>
-      <File FileName="PiEMOS-timer/Main.cs" Line="13" Column="19" />
+      <File FileName="PiEMOS-timer/Main.cs" Line="12" Column="34" />
       <File FileName="../Forseti-lib/Forseti-lib/HashConnection.cs" Line="34" Column="4" />
+      <File FileName="PiEMOS-timer/PiEMOSTimer.cs" Line="53" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Forseti-lib" expanded="True" />
           <Node name="PiEMOS-timer" expanded="True">
-            <Node name="Main.cs" selected="True" />
+            <Node name="PiEMOSTimer.cs" selected="True" />
           </Node>
         </State>
       </Pad>

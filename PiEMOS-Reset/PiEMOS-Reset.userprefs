@@ -1,16 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PiEMOS-configer/Main.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PiEMOS-Reset/Main.cs">
     <Files>
-      <File FileName="../Forseti-lib/Forseti-lib/HashPacketListener.cs" Line="1" Column="1" />
-      <File FileName="PiEMOS-configer/Main.cs" Line="24" Column="21" />
-      <File FileName="../Forseti-lib/Forseti-lib/BoxMapping.cs" Line="28" Column="14" />
+      <File FileName="PiEMOS-Reset/Main.cs" Line="27" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Forseti-lib" expanded="True" />
-          <Node name="PiEMOS-configer" expanded="True">
+          <Node name="PiEMOS-Reset" expanded="True">
             <Node name="Main.cs" selected="True" />
           </Node>
         </State>
