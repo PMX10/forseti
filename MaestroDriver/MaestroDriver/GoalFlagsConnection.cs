@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Forseti
 {
-    public class GoalLightsConnection : HashPacketListener
+    public class GoalFlagsConnection : HashPacketListener
     {
         private HashConnection conn;
         
@@ -13,7 +13,7 @@ namespace Forseti
 
         private CubeRouteField field;
         
-        public GoalLightsConnection(CubeRouteField field, string forsetiAddress, int listenPort, int sendPort)
+        public GoalFlagsConnection(CubeRouteField field, string forsetiAddress, int listenPort, int sendPort)
         {
             this.field = field;
             this.forsetiAddress = forsetiAddress;
