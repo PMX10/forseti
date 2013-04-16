@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForsetiMasterTest", "ForsetiMasterTest\ForsetiMasterTest.csproj", "{99983C37-2337-455D-9C64-B7F5125BB977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forseti-lib", "..\Forseti-lib\Forseti-lib\Forseti-lib.csproj", "{17DDD7AD-2289-4945-A150-D5609F591C20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17DDD7AD-2289-4945-A150-D5609F591C20}.Debug|x86.ActiveCfg = Debug|x86
+		{17DDD7AD-2289-4945-A150-D5609F591C20}.Debug|x86.Build.0 = Debug|x86
+		{17DDD7AD-2289-4945-A150-D5609F591C20}.Release|x86.ActiveCfg = Release|x86
+		{17DDD7AD-2289-4945-A150-D5609F591C20}.Release|x86.Build.0 = Release|x86
+		{99983C37-2337-455D-9C64-B7F5125BB977}.Debug|x86.ActiveCfg = Debug|x86
+		{99983C37-2337-455D-9C64-B7F5125BB977}.Debug|x86.Build.0 = Debug|x86
+		{99983C37-2337-455D-9C64-B7F5125BB977}.Release|x86.ActiveCfg = Release|x86
+		{99983C37-2337-455D-9C64-B7F5125BB977}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ForsetiMasterTest\ForsetiMasterTest.csproj
+	EndGlobalSection
+EndGlobal
