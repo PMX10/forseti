@@ -58,6 +58,7 @@ namespace PiE.Net
             this.sendPort = sendPort;
             this.endpoint = new IPEndPoint(IPAddress.Any, listenPort);
             this.socket = new UdpClient(listenPort);
+			this.socket.Client.ReceiveBufferSize = 0;
             this.listeners = new List<UDPSocketDataCallback>();
         }
         
