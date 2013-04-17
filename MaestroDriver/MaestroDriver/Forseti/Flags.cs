@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using LCM.LCM;
  
-namespace Foresti
+namespace Forseti
 {
     public sealed class Flags : LCM.LCM.LCMEncodable
     {
@@ -29,10 +29,10 @@ namespace Foresti
  
         public static ulong _hashRecursive(List<String> classes)
         {
-            if (classes.Contains("Foresti.Flags"))
+            if (classes.Contains("Forseti.Flags"))
                 return 0L;
  
-            classes.Add("Foresti.Flags");
+            classes.Add("Forseti.Flags");
             ulong hash = LCM_FINGERPRINT_BASE
                 ;
             classes.RemoveAt(classes.Count - 1);
@@ -67,9 +67,9 @@ namespace Foresti
             _decodeRecursive(ins);
         }
  
-        public static Foresti.Flags _decodeRecursiveFactory(LCMDataInputStream ins)
+        public static Forseti.Flags _decodeRecursiveFactory(LCMDataInputStream ins)
         {
-            Foresti.Flags o = new Foresti.Flags();
+            Forseti.Flags o = new Forseti.Flags();
             o._decodeRecursive(ins);
             return o;
         }
@@ -85,9 +85,9 @@ namespace Foresti
  
         }
  
-        public Foresti.Flags Copy()
+        public Forseti.Flags Copy()
         {
-            Foresti.Flags outobj = new Foresti.Flags();
+            Forseti.Flags outobj = new Forseti.Flags();
             outobj.goals = new double[(int) 4,(int) 5];
             for (int a = 0; a < 4; a++) {
                 for (int b = 0; b < 5; b++) {

@@ -57,7 +57,7 @@
     <Compile Include="CubeRouteField.cs" />
     <Compile Include="GoalFlags.cs" />
     <Compile Include="GoalLightsConnection.cs" />
-    <Compile Include="Foresti\Flags.cs" />
+    <Compile Include="Forseti\Flags.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -65,8 +65,5 @@
       <Project>{17DDD7AD-2289-4945-A150-D5609F591C20}</Project>
       <Name>Forseti-lib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Foresti\" />
   </ItemGroup>
 </Project>

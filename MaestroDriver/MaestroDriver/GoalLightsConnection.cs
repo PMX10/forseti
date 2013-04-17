@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using LCM.LCM;
 
 namespace Forseti
 {
-    public class GoalLightsConnection : HashPacketListener
+	public class GoalLightsConnection : HashPacketListener, LCM.LCM.LCMSubscriber
     {
         private HashConnection conn;
         
@@ -122,6 +123,44 @@ namespace Forseti
 //                }
 //            }
         }
+
+		public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCM.LCM.LCMDataInputStream dins)
+		{
+			Console.WriteLine("RECV: " + channel);
+			
+			if (channel == "MaestroDriver/Flags")
+			{
+				Flags msg = new Flags(dins);
+				Console.WriteLine("length1=" + msg.goals.Length);
+				Console.WriteLine("length2=" + msg.goals.LongLength);
+				for(int goal = 0; goal< 4; goal++)
+				{
+					for(int box = 0; box < 5; box++)
+					{
+						Console.WriteLine ("element goal=" + goal + ",\t box=" + box + ", value=" + msg.goals[goal,box]);
+						double value = msg.goals[goal,box];
+						switch ((int) value)
+						{
+						case 0:
+						{
+							this.field.Goals[goal].SetFlagNoFlag(box);
+							break;
+						}
+						case 1:
+						{
+							this.field.Goals[goal].SetFlagStandard(box);
+							break;
+						}
+						case 2:
+						{
+							this.field.Goals[goal].SetFlagSpecial(box);
+							break;
+						}
+						}
+					}
+				}
+			}
+		}
     }
 }
 

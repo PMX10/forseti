@@ -1,4 +1,4 @@
-package Foresti;
+package Forseti;
 
 struct Flags
 {
