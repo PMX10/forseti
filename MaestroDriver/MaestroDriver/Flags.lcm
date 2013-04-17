@@ -1,0 +1,6 @@
+package Foresti;
+
+struct Flags
+{
+    double goals[4][5];
+}
