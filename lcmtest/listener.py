@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 import lcm
 
 from exlcm import example_t
