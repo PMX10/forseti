@@ -1,0 +1,7 @@
+package Forseti;
+
+struct Health
+{
+    string   name;
+    double   uptime;
+}

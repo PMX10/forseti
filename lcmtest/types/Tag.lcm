@@ -1,0 +1,8 @@
+package Forseti;
+
+struct Tag
+{
+    double uptime;
+    string reader;
+    int32_t tagId;
+}

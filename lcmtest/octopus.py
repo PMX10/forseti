@@ -11,6 +11,11 @@ import struct
 import threading
 import time
 import usb.core
+import lcm
+
+from Forseti import Flags
+from Forseti import Tag
+from Forseti import Health
 
 usb_lock = threading.Lock()
 debug_reads = False
@@ -308,8 +313,26 @@ class Server(SocketServer.UDPServer):
         self.read_sender.formatter = self.formatter
         self.health_sender = HealthSender(self.formatter, self)
         self._lock = threading.Lock()
+        self.lcm = lcm.LCM("udpm://239.255.76.67:7667?ttl=1")
+        subscription = self.lcm.subscribe("GoalReader/TagConfirm", self.msg_handler)
+        self._thread = threading.Thread(target=self._loop)
+        self._thread.daemon = True
 
-    def send(self, msg):
+
+    def run(self):
+        self._thread.run()
+
+    def _loop(self):
+        try:
+            while True:
+                self.lcm.handle()
+        except:
+            pass
+
+
+    def send(self, topic, msg):
+        self.lcm.publish(topic, msg.encode())
+        '''
         try:
             self._lock.acquire()
             print('Sending', msg)
@@ -318,7 +341,15 @@ class Server(SocketServer.UDPServer):
             print('Exception when sending packet:', e)
         finally:
             self._lock.release()
+        '''
 
+    def msg_handler(self, channel, data):
+        if (channel == "GoalReader/TagConfirm"):
+            msg = Tag.decode(data)
+            print ("received tagConfirm!")
+            print("reader=" + msg.reader)
+            print("tagId="  + str(msg.tagId))
+            self.read_sender.repeater.push_confirm(msg)
 
 class HealthSender(object):
 
@@ -332,7 +363,7 @@ class HealthSender(object):
     def _loop(self):
         while True:
             time.sleep(0.25)
-            self.server.send(self.formatter.format_health())
+            self.server.send("GoalReader/Health", self.formatter.format_health())
 
 
 class TagReadSender(object):
@@ -342,15 +373,22 @@ class TagReadSender(object):
         self.formatter = formatter
         self.server = server
         self.repeater = Repeater(formatter, server)
+        #self.lc = lcm.LCM("udpm://239.255.76.67:7667?ttl=1")
 
     def respond(self, reactor, idx, new_val):
         if self.field_state.is_special_id(reactor, new_val):
             self.field_state.update_reader_map(reactor, idx, new_val)
         else:
             msg = self.formatter.format_tag_read(reactor, idx, new_val)
+            #self.lc.publish("GoalReader/Tags", msg.encode());
+            #self.server.publish("GoalReader/Tags", msg.encode());
+            self.server.send("GoalReader/Tags", msg)
+            self.repeater.push_send(msg.tagId, msg)            
+            '''
             print(msg)
             self.server.send(msg)
             self.repeater.push_send(unicode(new_val), msg)
+            '''
 
 
 class Repeater(object):
@@ -367,15 +405,23 @@ class Repeater(object):
         while True:
             time.sleep(0.1)
             for record in self.unconfirmed.values():
-                self.server.send(record)
+                self.server.send("GoalReader/Tags", record)
 
     def push_send(self, tag_id, msg):
+        #print ("push send")
         self.unconfirmed[tag_id] = msg
 
     def push_confirm(self, msg):
         try:
+            tag_id = msg.tagId
+            del self.unconfirmed[tag_id]
+            print('Removing from unconfirmed', tag_id)            
+        except KeyError:
+            pass
+        '''
+        try:
             obj = json.loads(msg)
-            tag_id = 0
+            tag_id = unicode(msg.tagId)
             try:
                 tag_id = obj[u'Packet'][u'TagID']
             except KeyError:
@@ -384,6 +430,7 @@ class Repeater(object):
             print('Removing from unconfirmed', tag_id)
         except KeyError:
             pass
+        '''
 
 class ReactorState(object):
 
@@ -459,17 +506,31 @@ class Formatter(object):
         self.timer = timer
 
     def format_health(self):
+        '''
         obj = { 'Type': 'Health', 
                 'Time': self.timer.time(),
                 'Readers': self.field_state.names_to_count }
         return json.dumps(obj)
+        '''
+        msg = Health()
+        msg.name = "GoalReader"
+        msg.uptime = self.timer.time()
+        return msg
+
 
     def format_tag_read(self, reactor, idx, new_val):
+        '''
         obj = { 'Type': 'TagRead',
                 'Time': self.timer.time(),
                 'Reader': self.field_state.reader_of_idx(reactor, idx),
                 'TagID': unicode(new_val) }
         return json.dumps(obj)
+        '''
+        msg = Tag()
+        msg.uptime = self.timer.time()
+        msg.reader = self.field_state.reader_of_idx(reactor, idx)
+        msg.tagId = new_val
+        return msg
 
 
 def main():
@@ -484,7 +545,7 @@ def main():
     #out_addr = ('10.42.0.1', 8000)
     out_addr = ('10.20.34.100', 8000)
 
-    Server(in_addr, out_addr).serve_forever()
+    Server(in_addr, out_addr).run()
 
 if __name__ == '__main__':
     main()
