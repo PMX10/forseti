@@ -2,13 +2,22 @@
 from __future__ import print_function
 
 import json
-import octopus
 import cmd
 import atexit
 import random
 
+have_octopus = 'Maybe'
+try:
+    import octopus
+    have_octopus = True
+except ImportError:
+    have_octopus = False
+    print('Could not load octopus.')
+
+
 MULTIPLY = 2
 ADD = 1
+
 
 class BoxScanCommander(cmd.Cmd):
 
@@ -170,12 +179,18 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--load', type=str, action='store')
     parser.add_argument('--select', const=True, action='store_const')
+    parser.add_argument('--randomize', const=True, action='store_const')
+    parser.add_argument('--save', type=str, action='store')
     args = parser.parse_args()
     commander = BoxScanCommander()
     if args.load:
         commander.do_load(args.load)
     if args.select:
         commander.do_select()
+    if args.randomize:
+        commander.do_randomize()
+    if args.save:
+        commander.do_save(args.save)
     commander.cmdloop()
 
 if __name__ == '__main__':
