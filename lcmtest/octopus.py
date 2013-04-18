@@ -1,6 +1,9 @@
 #!/usr/bin/env python2.7
 from __future__ import print_function
 
+import pdb
+import atexit
+#atexit.register(pdb.set_trace)
 import SocketServer
 import argparse
 import array
@@ -383,7 +386,7 @@ class TagReadSender(object):
             #self.lc.publish("GoalReader/Tags", msg.encode());
             #self.server.publish("GoalReader/Tags", msg.encode());
             self.server.send("GoalReader/Tags", msg)
-            self.repeater.push_send(msg.tagId, msg)            
+            self.repeater.push_send(msg.tagId, msg)
             '''
             print(msg)
             self.server.send(msg)
@@ -515,6 +518,7 @@ class Formatter(object):
         msg = Health()
         msg.name = "GoalReader"
         msg.uptime = self.timer.time()
+        print ("readers=" + str(self.field_state.names_to_count))
         return msg
 
 
