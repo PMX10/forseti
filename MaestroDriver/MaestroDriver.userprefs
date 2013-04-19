@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MaestroDriver/GoalLightsConnection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MaestroDriver/Main.cs">
     <Files>
-      <File FileName="MaestroDriver/Main.cs" Line="45" Column="65" />
-      <File FileName="MaestroDriver/GoalLightsConnection.cs" Line="79" Column="1" />
+      <File FileName="MaestroDriver/Main.cs" Line="58" Column="53" />
+      <File FileName="MaestroDriver/GoalFlagsConnection.cs" Line="9" Column="34" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Forseti-lib" expanded="True" />
           <Node name="MaestroDriver" expanded="True">
-            <Node name="GoalLightsConnection.cs" selected="True" />
+            <Node name="Main.cs" selected="True" />
           </Node>
         </State>
       </Pad>
@@ -23,7 +23,9 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/ajc/Projects/PioneersInEngineering/pie.software/forseti/MaestroDriver/MaestroDriver/GoalFlagsConnection.cs" line="17" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

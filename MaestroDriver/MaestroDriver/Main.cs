@@ -56,7 +56,7 @@ namespace Forseti
 
             
 //            GoalLightsConnection conn = new GoalLightsConnection(null, "127.0.0.1", 9001, 9000);
-			GoalLightsConnection conn = new GoalLightsConnection(field, "10.20.34.100", 9000, 9000);
+			GoalFlagsConnection conn = new GoalFlagsConnection(field, "10.20.34.100", 9000, 9000);
 			myLCM.SubscribeAll(conn);
             Console.WriteLine ("Running...");
             conn.Run ();

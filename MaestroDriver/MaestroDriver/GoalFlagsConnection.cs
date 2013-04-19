@@ -6,7 +6,7 @@ using LCM.LCM;
 
 namespace Forseti
 {
-	public class GoalLightsConnection : HashPacketListener, LCM.LCM.LCMSubscriber
+	public class GoalFlagsConnection : HashPacketListener, LCM.LCM.LCMSubscriber
     {
         private HashConnection conn;
         
