@@ -1,6 +1,6 @@
-package Foresti;
+package Forseti;
 
-struct Health_t
+struct ReaderState
 {
     string   name;
     double   uptime;

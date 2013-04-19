@@ -42,3 +42,11 @@ Session.vim
 *~
 *.cfg
 
+# Java
+*.jar
+*.class
+
+# Types
+Forseti/*
+
+

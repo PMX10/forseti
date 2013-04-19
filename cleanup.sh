@@ -1,4 +1,4 @@
 #!/bin/sh
 
 rm -f *.pyc
-rm -rf exlcm
+rm -rf Forseti
