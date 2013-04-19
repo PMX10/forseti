@@ -5,7 +5,6 @@ struct ConfigData {
   boolean IsBlueAlliance;
   int32_t TeamNumber;
   string TeamName;
-  int32_t PiEMOSNumber;
 
   // Might be deprecated in favor of defining an LCM format.
   string FieldObjects;

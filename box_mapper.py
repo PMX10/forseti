@@ -23,7 +23,7 @@ def main():
         field_objects = rfile.read()
     print('Field map', field_objects)
     for i in range(len(teams)):
-        send_team(lc, teams[i], i, field_objects)
+        send_team(lc, teams[i], i+1, field_objects)
 
 def get_config(num):
     try:
@@ -48,8 +48,7 @@ def send_team(lc, num, idx, field_objects):
     data.TeamNumber = int(num)
     data.TeamName = get_name(num)
     data.FieldObjects = field_objects
-    data.PiEMOSNumber = idx
-    lc.publish('PiEMOS/Config', data.encode())
+    lc.publish('PiEMOS' + str(idx) + '/Config', data.encode())
 
 if __name__ == '__main__':
     main()
