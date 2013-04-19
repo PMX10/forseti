@@ -40,5 +40,5 @@ nosetests.xml
 Session.vim
 .netrwhist
 *~
-
+*.cfg
 

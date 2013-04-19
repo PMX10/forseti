@@ -5,65 +5,41 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4F3F5AC8-96A2-4BA1-A19B-F8B2B38A073F}</ProjectGuid>
+    <ProjectGuid>{C7E9739D-D757-4B1D-AB95-88B4A27D460D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MaestroDriver</RootNamespace>
-    <AssemblyName>MaestroDriver</AssemblyName>
+    <RootNamespace>LCMTestNode2</RootNamespace>
+    <AssemblyName>LCMTestNode2</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <Externalconsole>True</Externalconsole>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>none</DebugType>
-    <Optimize>True</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <Externalconsole>True</Externalconsole>
+    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Bytecode">
-      <HintPath>Bytecode.dll</HintPath>
-    </Reference>
-    <Reference Include="FirmwareUpgrade">
-      <HintPath>FirmwareUpgrade.dll</HintPath>
-    </Reference>
-    <Reference Include="Sequencer">
-      <HintPath>Sequencer.dll</HintPath>
-    </Reference>
-    <Reference Include="UsbWrapper">
-      <HintPath>UsbWrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Usc">
-      <HintPath>Usc.dll</HintPath>
-    </Reference>
     <Reference Include="lcm">
-      <HintPath>..\..\..\field-control\lcm-0.9.2\lcm-dotnet\bin\Debug\lcm.dll</HintPath>
+      <HintPath>..\..\..\forseti-related\lcm.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="CubeRouteField.cs" />
-    <Compile Include="GoalFlags.cs" />
-    <Compile Include="GoalFlagsConnection.cs" />
-    <Compile Include="Forseti\Flags.cs" />
+    <Compile Include="Foresti\Health_t.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\..\Forseti-lib\Forseti-lib\Forseti-lib.csproj">
-      <Project>{17DDD7AD-2289-4945-A150-D5609F591C20}</Project>
-      <Name>Forseti-lib</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

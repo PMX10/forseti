@@ -1,0 +1,6 @@
+package Forseti;
+
+struct GoalBoxes
+{
+    int8_t goals[4][5];
+}

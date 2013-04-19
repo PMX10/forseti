@@ -1,0 +1,5 @@
+package Forseti;
+
+struct ConfigFeedback {
+  string ConfigDataMd5;
+}

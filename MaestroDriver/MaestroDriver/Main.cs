@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Pololu.Usc;
 using Pololu.UsbWrapper;
-
+using LCM.LCM;
 
 namespace Forseti
 {
@@ -11,7 +11,19 @@ namespace Forseti
 	{
 		public static void Main (string[] args)
 		{
-			Console.WriteLine ("Starting Maestro driver...");
+			LCM.LCM.LCM myLCM;
+			
+			try
+			{
+				Console.WriteLine ("Starting Maestro driver...");
+				myLCM = new LCM.LCM.LCM("udpm://239.255.76.67:7667?ttl=1");
+				Console.WriteLine ("LCM Connected!");
+			}
+			catch (Exception ex)
+			{
+				Console.Error.WriteLine("Ex: " + ex);
+				Environment.Exit(1);
+			}
 			List<DeviceListItem> connectedDevices = Usc.getConnectedDevices();
 			Console.WriteLine ("Number of MicroMaestros detected=" + connectedDevices.Count);
 
@@ -42,8 +54,10 @@ namespace Forseti
             }
                     
 
-            GoalLightsConnection conn = new GoalLightsConnection(field, "10.20.34.100", 9000, 9000);
+            
 //            GoalLightsConnection conn = new GoalLightsConnection(null, "127.0.0.1", 9001, 9000);
+			GoalLightsConnection conn = new GoalLightsConnection(field, "10.20.34.100", 9000, 9000);
+			myLCM.SubscribeAll(conn);
             Console.WriteLine ("Running...");
             conn.Run ();
 		}

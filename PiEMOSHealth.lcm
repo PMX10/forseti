@@ -1,0 +1,13 @@
+package Forseti;
+
+struct PiEMOSHealth {
+  boolean TeleopEnabled;
+  boolean LocalRobotEnabled;
+  boolean AutonomousEnabled;
+  boolean FieldRobotEnabled;
+  string Stage;
+  int32_t Time;
+  float Uptime;
+  string PiEMOSState;
+}
+  
