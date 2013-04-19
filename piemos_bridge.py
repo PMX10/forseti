@@ -6,6 +6,7 @@ import argparse
 import json
 import lcm
 import socket
+import time
 from Forseti import *
 
 class PiEMOSBridge(object):
@@ -15,7 +16,7 @@ class PiEMOSBridge(object):
         self.out_address = piemos_address
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.lcm.subscribe('PiEMOS/Config', self.handle_config)
-        self.lcm.subscribe('PiEMOS/Command', self.handle_command)
+        #self.lcm.subscribe('PiEMOS/Command', self.handle_command)
         self.lcm.subscribe('PiEMOS/Control', self.handle_control)
         self.number = number
 
@@ -68,19 +69,20 @@ class PiEMOSHandler(SocketServer.BaseRequestHandler):
         elif 'ConfigDataFeedback' in msg:
             self.handle_config_feedback(msg)
 
-    def handle_health(self, msg):
-        print('Got PiEMOS health', msg)
+    def handle_health(self, packet):
+        print('Got PiEMOS health', packet)
+        msg = json.loads(packet)
         msg = msg['Health']
         health = PiEMOSHealth()
-        health.TeleopEnabled = msg['ControlData']['OperationMode']['FieldTeleopEnabled']
-        health.LocalRobotEnabled = msg['ControlData']['OperationMode']['LocalRobotEnabled']
-        health.AutonomousEnabled = msg['ControlData']['OperationMode']['FieldAutonomousEnabled']
-        health.FieldRobotEnabled = msg['ControlData']['OperationMode']['FieldRobotEnabled']
+        health.TeleopEnabled = msg['OperationMode']['FieldTeleopEnabled']
+        health.LocalRobotEnabled = msg['OperationMode']['LocalRobotEnabled']
+        health.AutonomousEnabled = msg['OperationMode']['FieldAutonomousEnabled']
+        health.FieldRobotEnabled = msg['OperationMode']['FieldRobotEnabled']
         health.Stage = msg['Match']['Stage']
         health.Time = msg['Match']['Time']
         health.Uptime = msg['Uptime']
         health.PiEMOSState = msg['PiEMOSState']
-        self.publish('PiEMOS/Health', msg)
+        self.publish('PiEMOS/Health', health)
 
     def handle_config_feedback(self, msg):
         print('Get PiEMOS config feedback', msg)
@@ -89,7 +91,7 @@ class PiEMOSHandler(SocketServer.BaseRequestHandler):
         self.publish('PiEMOS/ConfigFeedback', msg)
 
     def publish(self, topic, msg):
-        self.server.publish(topic, msg.encode())
+        self.server.publish(topic, msg)
 
 class PiEMOSReceiver(SocketServer.UDPServer):
 
@@ -97,18 +99,23 @@ class PiEMOSReceiver(SocketServer.UDPServer):
         SocketServer.UDPServer.__init__(self, in_addr, PiEMOSHandler)
         self.lcm = lc
 
+    def publish(self, topic, msg):
+        self.lcm.publish(topic, msg.encode())
+
+
 def main():
     lc = lcm.LCM('udpm://239.255.76.67:7667?ttl=1')
     parser = argparse.ArgumentParser()
     parser.add_argument('--address', type=str, action='store')
+    parser.add_argument('--port', type=int, action='store')
     parser.add_argument('--number', type=int, action='store')
     args = parser.parse_args()
     if not args.address:
         print('Need address!')
         return
     bridge = PiEMOSBridge(args.address, args.number, lc)
-    piemos_receiver = PiEMOSReceiver(lc, args.address)
-    piemos_receiver.run()
+    piemos_receiver = PiEMOSReceiver(lc, ('', args.port)).serve_forever()
+
 
 if __name__ == '__main__':
     main()
