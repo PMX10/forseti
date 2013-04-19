@@ -1,0 +1,5 @@
+package Forseti;
+
+struct CommandData {
+  string command;
+}
