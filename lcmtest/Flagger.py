@@ -8,6 +8,11 @@ from Forseti import Tag
 from Forseti import GoalBoxes
 from Forseti import Flags
 
+'''
+Flagger subscribes to Goals/Goals and publishes to MaestroDriver/Flags to visualize it.
+
+TODO(ajc): health
+'''
 class Flagger(object):
 
     def __init__(self, lcm):
@@ -45,7 +50,7 @@ class Flagger(object):
 
     def msg_handler(self, channel, data):
 
-        if (channel == "Goals/Goals"):
+        if channel == "Goals/Goals":
             msg = GoalBoxes.decode(data)
             print ("received Goals!")
 #            print("reader=" + msg.reader)

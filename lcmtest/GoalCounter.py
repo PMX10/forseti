@@ -7,6 +7,13 @@ from Forseti import Health
 from Forseti import Tag
 from Forseti import GoalBoxes
 
+'''
+GoalCounter subscribes to GoalReader/Tags and publishes to Goals/Goals.
+It counts goals as they appear in goals, and publishes what the goals
+should have inside of them.
+
+TODO(ajc): Health, and reset.
+'''
 class GoalCounter(object):
 	def __init__(self, lcm):
 		self.lcm = lcm
@@ -40,7 +47,7 @@ class GoalCounter(object):
 			time.sleep(0.1)
 
 	def msg_handler(self, channel, data):
-		if (channel == "GoalReader/Tags"):
+		if channel == "GoalReader/Tags":
 			msg = Tag.decode(data)
 			print ("received tag!")
 			print("reader=" + msg.reader)

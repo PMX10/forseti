@@ -23,6 +23,11 @@ from Forseti import Health
 usb_lock = threading.Lock()
 debug_reads = False
 
+'''
+GoalReader reads the Grizzly-adafruit and PcProx readers, and publishes Tag messages.
+
+TODO(ajc): ReaderState, health
+'''
 class Uptimer(object):
 
     def __init__(self):
@@ -50,7 +55,7 @@ class ReaderReactor(object):
         self._thread.start()
 
     def get_addr_map(self):
-        return dict([(dev.address, 0) for dev in self.readers])
+        return dict([(dev.address, 0) for dev Could not detachin self.readers])
 
     def get_more_readers(self):
         # The following method usually works, but causes random crashes
@@ -347,7 +352,7 @@ class Server(SocketServer.UDPServer):
         '''
 
     def msg_handler(self, channel, data):
-        if (channel == "GoalReader/TagConfirm"):
+        if channel == "GoalReader/TagConfirm":
             msg = Tag.decode(data)
             print ("received tagConfirm!")
             print("reader=" + msg.reader)
