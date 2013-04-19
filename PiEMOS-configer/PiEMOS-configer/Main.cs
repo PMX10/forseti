@@ -14,10 +14,10 @@ namespace Forseti
 
 			Dictionary<int, string> filenames = new Dictionary<int, string>();
 
-			filenames[1] = "15";
+			filenames[1] = "working.cfg";
 			filenames[2] = "working.cfg";
-			filenames[3] = "30";
-			filenames[4] = "29";
+			filenames[3] = "working.cfg";
+			filenames[4] = "working.cfg";
 
 			Dictionary<int, bool> blues = new Dictionary<int, bool>();
 			blues[1] = true;
@@ -43,11 +43,13 @@ namespace Forseti
 			{
 //				string config = File.ReadAllText("" + i + ".cfg");
 				string config = File.ReadAllText(filenames[i]);
+				//Console.WriteLine ("config=" + config);
 
 				PiEMOSConfiger configer = new PiEMOSConfiger("10.20.34.10" + i, 6000 + i, 6000 + i, config);
 
 				configer.ConfigIsBlueAlliance = blues[i];
 				configer.ConfigTeamName = names[i];
+				configer.ConfigTeamNumber = numbers[i];
 
 
 				configer.Start();

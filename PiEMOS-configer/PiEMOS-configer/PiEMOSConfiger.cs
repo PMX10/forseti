@@ -12,6 +12,10 @@ namespace Forseti
         private string config;
         private bool done;
 
+		public bool ConfigIsBlueAlliance = false;
+		public int ConfigTeamNumber = 1;
+		public string ConfigTeamName = "hello";
+
         public PiEMOSConfiger (string piemosAddress, int listen, int send, string config)
         {
             this.conn = new HashConnection (listen, send);
@@ -85,12 +89,14 @@ namespace Forseti
             this.conn.SendTable (t, this.piemosAddress);
         }
 
+
+
         public void SendConfigData (Hashtable teamInfo, string configFile)
         {
             string txt = configFile;//configText.text;
             txt = txt.Replace ("\r", "").Replace ("\n", "").Replace ("\t", "");
 
-            Hashtable table = teamInfo;
+            Hashtable table = new Hashtable();
             table.Add ("ConfigFile", txt);
             table.Add("IsBlueAlliance", ConfigIsBlueAlliance);
             table.Add("TeamNumber", ConfigTeamNumber);
