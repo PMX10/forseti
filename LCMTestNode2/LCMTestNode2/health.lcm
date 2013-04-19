@@ -1,7 +1,0 @@
-package Foresti;
-
-struct Health_t
-{
-    string   name;
-    double   uptime;
-}
