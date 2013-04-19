@@ -138,25 +138,7 @@ namespace Forseti
 					for(int box = 0; box < 5; box++)
 					{
 						Console.WriteLine ("element goal=" + goal + ",\t box=" + box + ", value=" + msg.goals[goal,box]);
-						double value = msg.goals[goal,box];
-						switch ((int) value)
-						{
-						case 0:
-						{
-							this.field.Goals[goal].SetFlagNoFlag(box);
-							break;
-						}
-						case 1:
-						{
-							this.field.Goals[goal].SetFlagStandard(box);
-							break;
-						}
-						case 2:
-						{
-							this.field.Goals[goal].SetFlagSpecial(box);
-							break;
-						}
-						}
+						this.field.Goals[goal].setFlagPosition(box, msg.goals[goal, box]);
 					}
 				}
 			}
