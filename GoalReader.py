@@ -55,7 +55,7 @@ class ReaderReactor(object):
         self._thread.start()
 
     def get_addr_map(self):
-        return dict([(dev.address, 0) for dev Could not detachin self.readers])
+        return dict([(dev.address, 0) for dev in self.readers])
 
     def get_more_readers(self):
         # The following method usually works, but causes random crashes
