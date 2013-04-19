@@ -26,6 +26,10 @@ class GoalCounter(object):
 		self._read_thread.daemon = True
 		self._write_thread = threading.Thread(target=self._write_loop)
 		self._write_thread.daemon = True
+		self._health_thread = threading.Thread(target=self._health_loop)
+		self._health_thread.daemon = True
+		self.startTime = time.time()
+
 		self.goalBoxesLock = threading.Lock()
 		self.goalboxes = GoalBoxes()
 		self.goalboxes.goals = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]
@@ -37,6 +41,9 @@ class GoalCounter(object):
 
 	def write_start(self):
 		self._write_thread.start()
+
+	def health_start(self):
+		self._health_thread.start()
 
 	def _read_loop(self):
 		try:
@@ -50,6 +57,12 @@ class GoalCounter(object):
 			self.lcm.publish("Goals/Goals", self.goalboxes.encode())
 			self.goalBoxesLock.release()
 			time.sleep(0.1)
+	def _health_loop(self):
+		while True:
+			msg = Health()
+			msg.uptime = time.time() - self.startTime
+			self.lcm.publish("GoalCounter/Health", msg.encode())
+			time.sleep(0.25)
 
 	def msg_handler(self, channel, data):
 		if channel == "GoalReader/Tags":
@@ -97,6 +110,7 @@ def main():
 	field_table = json.loads(field_objects)
 
 	gc = GoalCounter(lc, field_table)
+	gc.health_start()
 	gc.write_start()
 	gc.read_run()
 

@@ -34,7 +34,7 @@ class Uptimer(object):
         self.start_time = time.time()
 
     def time(self):
-        return int(time.time() - self.start_time)
+        return time.time() - self.start_time
 
 def Nothing(*args):
     pass
@@ -521,7 +521,6 @@ class Formatter(object):
         return json.dumps(obj)
         '''
         msg = Health()
-        msg.name = "GoalReader"
         msg.uptime = self.timer.time()
         print ("readers=" + str(self.field_state.names_to_count))
         return msg

@@ -22,6 +22,9 @@ class Flagger(object):
         self._read_thread.daemon = True
         self._write_thread = threading.Thread(target=self._write_loop)
         self._write_thread.daemon = True
+        self._health_thread = threading.Thread(target=self._health_loop)
+        self._health_thread.daemon = True
+        self.startTime = time.time()
         self.flagsLock = threading.Lock()
         self.flags = Flags()
         self.flags.goals = [[0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0]]
@@ -33,12 +36,22 @@ class Flagger(object):
     def write_start(self):
         self._write_thread.start()
 
+    def health_start(self):
+        self._health_thread.start()
+
     def _read_loop(self):
         try:
             while True:
                 self.lcm.handle()
         except:
-            pass        
+            pass
+
+    def _health_loop(self):
+        while True:
+            msg = Health()
+            msg.uptime = time.time() - self.startTime
+            self.lcm.publish("Flagger/Health", msg.encode())
+            time.sleep(0.25)
 
     def _write_loop(self):
         while True:
@@ -75,6 +88,7 @@ def main():
     print "LCM Initialized!"
 
     gc = Flagger(lc)
+    gc.health_start()
     gc.write_start()
     gc.read_run()
 

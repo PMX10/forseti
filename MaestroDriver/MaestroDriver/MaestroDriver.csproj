@@ -58,6 +58,7 @@
     <Compile Include="GoalFlags.cs" />
     <Compile Include="GoalFlagsConnection.cs" />
     <Compile Include="Forseti\Flags.cs" />
+    <Compile Include="Forseti\Health.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

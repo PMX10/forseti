@@ -6,21 +6,17 @@ using LCM.LCM;
 
 namespace Forseti
 {
-	public class GoalFlagsConnection : HashPacketListener, LCM.LCM.LCMSubscriber
+	public class GoalFlagsConnection : LCM.LCM.LCMSubscriber
     {
-        private HashConnection conn;
-        
-        private string forsetiAddress;
 
         private CubeRouteField field;
+		private LCM.LCM.LCM lcm;
         
-        public GoalFlagsConnection(CubeRouteField field, string forsetiAddress, int listenPort, int sendPort)
+        public GoalFlagsConnection(LCM.LCM.LCM lcm, CubeRouteField field)
         {
+			this.lcm = lcm;
             this.field = field;
-            this.forsetiAddress = forsetiAddress;
-            this.conn = new HashConnection(listenPort, sendPort);
-            this.conn.AddHashConPacketListener(this);
-            
+			this.lcm.Subscribe("MaestroDriver/Flags", this);
             this.Running = false;
         }
         
@@ -45,83 +41,17 @@ namespace Forseti
         
         public void Run()
         {
-            this.conn.Start();
             this.Running = true;
+			double start = ((double)DateTime.Now.Ticks) / (double)TimeSpan.TicksPerSecond;
             while(this.Running)
             {
-//                foreach (ForScoreTagRead packet in this.packetsToSend)
-//                {
-//                    this.conn.SendPacket(packet, this.forsetiAddress);
-//                }
-                
-                long time = DateTime.Now.Ticks / TimeSpan.TicksPerSecond;
+                double time = ((double)DateTime.Now.Ticks) / (double)TimeSpan.TicksPerSecond;
 
-                Hashtable t = new Hashtable();
-                t["Uptime"] = time;
-                this.conn.SendTable(t, this.forsetiAddress);
-                Console.WriteLine("time=" + time);
-//                ForConHealth h = new ForConHealth(time);
-//                this.conn.SendPacket(h, this.forsetiAddress);
-                Thread.Sleep (500);
+				Health msg = new Health();
+				msg.uptime = time - start;
+				this.lcm.Publish("MaestroDriver/Health", msg);
+                Thread.Sleep (250);
             }
-        }
-        
-        public void HashPacketReceived(Hashtable t, string senderAddress)
-        {
-            if (t.ContainsKey("FieldGoals"))
-            {
-                ArrayList boxes = (ArrayList) t["FieldGoals"];
-                for(int goal = 0; goal < 4; goal++)
-                {
-                    Console.WriteLine ("goal="  + goal);
-                    for(int box = 0; box < 5; box++)
-                    {
-                        Console.WriteLine ("box=" + box);
-
-//                        Console.WriteLine (boxes[5*goal + box].GetType());
-                          
-                        float value = (float) boxes[5 * goal + box];
-                        switch ((int) value)
-                        {
-                        case 0:
-                        {
-                            this.field.Goals[goal].SetFlagNoFlag(box);
-                            break;
-                        }
-                        case 1:
-                        {
-                            this.field.Goals[goal].SetFlagStandard(box);
-                            break;
-                        }
-                        case 2:
-                        {
-                            this.field.Goals[goal].SetFlagSpecial(box);
-                            break;
-                        }
-                        }
-                    }
-                }
-
-                Console.WriteLine ("received boxes=" + MiniJSON.jsonEncode(t["FieldGoals"]));
-
-            }
-            Console.WriteLine("received event=" + MiniJSON.jsonEncode(t));
-
-//            if (ev.Packet.Type == ForConPacketType.ForScoreLightState)
-//            {
-//                ForScoreLightStatus status = ForScoreLightStatus.FromJSON(ev.Packet.PacketString);
-//				List<BoxType> boxes = status.Goals.Goals[Goal.A].Boxes; //TODO(ajc) hardcoded, for now
-//
-//                for(int i = 0; i< 5; i++)
-//                {
-//                    double position = 0;
-//                    if(i < boxes.Count)
-//                    {
-//                        position = boxes[i] == BoxType.BoxType1 ? 1.0 : -1.0;
-//                    }
-//                    this.field.Goals[0].setFlagPosition(i, position);
-//                }
-//            }
         }
 
 		public void MessageReceived(LCM.LCM.LCM lcm, string channel, LCM.LCM.LCMDataInputStream dins)

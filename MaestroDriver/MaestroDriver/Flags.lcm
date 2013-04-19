@@ -1,6 +1,0 @@
-package Forseti;
-
-struct Flags
-{
-    double goals[4][5];
-}
