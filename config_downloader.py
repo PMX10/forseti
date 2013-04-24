@@ -13,7 +13,8 @@ for i in range(32):
     try:
         f = urllib.urlopen(target_base.format(i))
         obj = json.load(f)
+        data = obj[u'file_contents']
         with open(os.path.join(config_dir, '{}.cfg'.format(i)), 'w') as wfile:
-            wfile.write(obj[u'file_contents'])
+            wfile.write(data)
     except Exception as ex:
         print("Couldn't query", target_base.format(i), "got", ex)
