@@ -41,15 +41,19 @@ def main():
 
     while time.time() - start < 2:
         msg.Time = round(time.time() - start)
-        print("sending control, time=" + str(msg.Time))
+        print("sending setup, time=" + str(msg.Time))
         msg.AutonomousEnabled = True
         msg.TeleopEnabled = False
         msg.RobotEnabled = False
         msg.Stage = "Setup"
+        lc.publish("PiEMOS1/Control", msg.encode())
+        lc.publish("PiEMOS2/Control", msg.encode())
+        lc.publish("PiEMOS3/Control", msg.encode())
         lc.publish("PiEMOS4/Control", msg.encode())
         time.sleep(0.25)
 
-    while time.time() - start < 10:
+    '''
+    while time.time() - start < 17:
         msg.Time = round(time.time() - start)
         msg.AutonomousEnabled = True
         msg.TeleopEnabled = False
@@ -58,16 +62,19 @@ def main():
         print("sending control, time=" + str(msg.Time))
         lc.publish("PiEMOS4/Control", msg.encode())
         time.sleep(0.25)
-
+    '''
     while True:
         msg.Time = round(time.time() - start)
         msg.AutonomousEnabled = False
         msg.TeleopEnabled = True
         msg.RobotEnabled = True
         msg.Stage = "Teleop"
-        print("sending control, time=" + str(msg.Time))
+        print("sending teleop, time=" + str(msg.Time))
+        lc.publish("PiEMOS1/Control", msg.encode())
+        lc.publish("PiEMOS2/Control", msg.encode())
+        lc.publish("PiEMOS3/Control", msg.encode())
         lc.publish("PiEMOS4/Control", msg.encode())
-        time.sleep(0.25)
+        ztime.sleep(0.25)
 
 
 
