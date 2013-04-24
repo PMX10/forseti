@@ -6,13 +6,13 @@ import cmd
 import atexit
 import random
 
-have_octopus = 'Maybe'
+have_GoalReader = 'Maybe'
 try:
-    import octopus
-    have_octopus = True
+    import GoalReader
+    have_GoalReader = True
 except ImportError:
-    have_octopus = False
-    print('Could not load octopus.')
+    have_GoalReader = False
+    print('Could not load GoalReader.')
 
 
 MULTIPLY = 2
@@ -26,8 +26,8 @@ class BoxScanCommander(cmd.Cmd):
         self.reads = []
         self.selected = []
         self.current_box = 0
-        self.pcprox_reactor = octopus.PcProxReaderReactor(self.pcprox_read)
-        self.grizzly_reactor = octopus.GrizzlyReaderReactor(self.grizzly_read)
+        self.pcprox_reactor = GoalReader.PcProxReaderReactor(self.pcprox_read)
+        self.grizzly_reactor = GoalReader.GrizzlyReaderReactor(self.grizzly_read)
         atexit.register(self.do_quit)
         self.normal_prompt = '  ready =>> '
         self.reading_prompt = 'reading =>> '
