@@ -50,9 +50,7 @@ class PiEMOSBridge(object):
             'ConfigData': {
                 'TeamName': msg.TeamName,
                 'FieldObjects': fieldobjects,
-                #'FieldObjects': [],
                 'ConfigFile': msg.ConfigFile.replace('\t','').replace('\n', '').replace('\r', ''),
-                #'ConfigFile':'',
                 'TeamNumber': msg.TeamNumber,
                 'IsBlueAlliance': bool(msg.IsBlueAlliance)
             }

@@ -1,0 +1,6 @@
+package Forseti;
+
+struct TimeControl {
+	// either "pause", "start", or "reset"
+	string command_name;
+}
