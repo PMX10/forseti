@@ -1,0 +1,13 @@
+package Forseti;
+
+struct Score {
+
+    int8_t blue_boxpoints;
+    int8_t gold_boxpoints;
+
+    int8_t blue_penalties;
+    int8_t gold_penalties;
+
+    int8_t blue_finalscore;
+    int8_t gold_finalscore;
+}
