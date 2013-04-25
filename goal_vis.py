@@ -92,26 +92,22 @@ class Board(wx.Panel):
             print("tagId="  + str(msg.tagId))
 
             self.lcm.publish("GoalReader/TagConfirm", data)
-            goal = self.readers_to_goals[msg.reader]
-            print "goal=" + str(goal)
+            try:
+                goal = self.readers_to_goals[msg.reader]
+                print "goal=" + str(goal)
 
-            self.selected_tags_lock.acquire()
-            self.selected_tags.append(
-                {"Goal":goal,
-                 "Type":self.get_object_type(msg.tagId),
-                 "TagId":msg.tagId
-                 })
-            print("tags added")
-            print("selected_tags:" + str(json.dumps(self.selected_tags)))
-            self.selected_tags_lock.release()
-            # self.goalBoxesLock.acquire()
-            # for i in range(0, 5):
-            #     if self.goalboxes.goals[goal][i] is 0:
-            #         print("object_type=" + str(self.get_object_type(msg.tagId)))
-            #         self.goalboxes.goals[goal][i] = self.get_object_type(msg.tagId)
-            #         break;
-            # self.goalBoxesLock.release()
-            print ("message handler exiting")
+                self.selected_tags_lock.acquire()
+                self.selected_tags.append(
+                    {"Goal":goal,
+                     "Type":self.get_object_type(msg.tagId),
+                     "TagId":msg.tagId
+                     })
+                print("tags added")
+                print("selected_tags:" + str(json.dumps(self.selected_tags)))
+                self.selected_tags_lock.release()
+                print ("message handler exiting")
+            except KeyError as e:
+                print "KeyError" + str(e)
 
     def get_object_type(self, uid):
         '''
