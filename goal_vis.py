@@ -14,12 +14,9 @@ class GoalVis(wx.Frame):
     def __init__(self, parent, id, title, lcm, field_table):
         wx.Frame.__init__(self, parent, id, title, size=(180, 380))
 
-        self.statusbar = self.CreateStatusBar()
-        self.statusbar.SetStatusText('0')
         self.board = Board(self, lcm, field_table)
         self.board.SetFocus()
         self.board.start()
-
         self.Centre()
         self.Show(True)
 
