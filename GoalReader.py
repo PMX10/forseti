@@ -124,7 +124,11 @@ class ReaderReactor(object):
                 if e.backend_error_code != -7:
                     # If the reader encountered an error besides timeout,
                     # remove it.
-                    self.readers[i] = None
+
+                    # This has been commented out--
+                    # removing it doesn't seem to break anything,
+                    # but keeping it reduces the stability.
+                    #self.readers[i] = None
                     self.remove_callback(self, i)
                 continue
             if self.last_ids[i] != val:
@@ -144,7 +148,7 @@ class ReaderReactor(object):
 class GrizzlyReaderReactor(ReaderReactor):
 
     # Magic numbers from the Grizzly Bear Motor Controller Reader
-    idVendor = 0x03eb 
+    idVendor = 0x03eb
     idProduct = 0x204f
 
     def __init__(self, *args, **kwargs):
