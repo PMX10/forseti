@@ -74,7 +74,7 @@ def main():
         lc.publish("PiEMOS2/Control", msg.encode())
         lc.publish("PiEMOS3/Control", msg.encode())
         lc.publish("PiEMOS4/Control", msg.encode())
-        ztime.sleep(0.25)
+        time.sleep(0.25)
 
 
 

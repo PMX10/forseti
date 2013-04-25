@@ -8,6 +8,7 @@ import lcm
 import socket
 import time
 import threading
+import sys
 from Forseti import *
 
 class PiEMOSBridge(object):
@@ -15,7 +16,9 @@ class PiEMOSBridge(object):
     def __init__(self, piemos_address, number, lc):
         self.lcm = lc
         self.out_address = piemos_address
+        print('sending to address', self.out_address)
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        assert number in range(1, 5)
         self.lcm.subscribe('PiEMOS' + str(number) + '/Config', self.handle_config)
         self.lcm.subscribe('PiEMOS' + str(number) + '/Command', self.handle_command)
         self.lcm.subscribe('PiEMOS' + str(number) + '/Control', self.handle_control)
@@ -47,9 +50,11 @@ class PiEMOSBridge(object):
             'ConfigData': {
                 'TeamName': msg.TeamName,
                 'FieldObjects': fieldobjects,
+                #'FieldObjects': [],
                 'ConfigFile': msg.ConfigFile.replace('\t','').replace('\n', '').replace('\r', ''),
+                #'ConfigFile':'',
                 'TeamNumber': msg.TeamNumber,
-                'IsBlueAlliance': msg.IsBlueAlliance
+                'IsBlueAlliance': bool(msg.IsBlueAlliance)
             }
         }))
 
@@ -71,23 +76,24 @@ class PiEMOSBridge(object):
         self.send(json.dumps({
             'ControlData': {
                 'OperationMode': {
-                    'FieldTeleopEnabled': msg.TeleopEnabled,
-                    'HaltRadio': msg.HaltRadio,
-                    'FieldAutonomousEnabled': msg.AutonomousEnabled, 
-                    'FieldRobotEnabled': msg.RobotEnabled
+                    'FieldTeleopEnabled': bool(msg.TeleopEnabled),
+                    'HaltRadio': bool(msg.HaltRadio),
+                    'FieldAutonomousEnabled': bool(msg.AutonomousEnabled), 
+                    'FieldRobotEnabled': bool(msg.RobotEnabled)
                 }, 
                 'Match':{
                     'Stage':msg.Stage, 
                     'Time': msg.Time
                 }
             }
-        }).replace(': 1,',':true,').replace(': 0,', ':false,').replace('1}', 'true}').replace('0}','false}'))
+        }))
 
 class PiEMOSHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
         print('Got packet from PiEMOS')
         msg = self.request[0]
+        #print(msg)
         if 'Health' in msg:
             self.handle_health(msg)
         elif 'ConfigDataFeedback' in msg:
@@ -110,9 +116,11 @@ class PiEMOSHandler(SocketServer.BaseRequestHandler):
 
     def handle_config_feedback(self, msg):
         print('Get PiEMOS config feedback', msg)
+        data = json.loads(msg)
         feedback = ConfigFeedback()
-        feedback.ConfigDataMd5 = msg['ConfigDataFeedback']['ConfigDataMd5']
-        self.publish('PiEMOS' + str(self.server.number) + '/ConfigFeedback', msg)
+        feedback.ConfigDataMd5 = data['ConfigDataFeedback']['ConfigDataMd5']
+        self.publish('PiEMOS' + str(self.server.number) + '/ConfigFeedback',
+                feedback)
 
     def publish(self, topic, msg):
         self.server.publish(topic, msg)
@@ -120,6 +128,7 @@ class PiEMOSHandler(SocketServer.BaseRequestHandler):
 class PiEMOSReceiver(SocketServer.UDPServer):
 
     def __init__(self, lc, in_addr, number):
+        print('Listening on address', in_addr)
         SocketServer.UDPServer.__init__(self, in_addr, PiEMOSHandler)
         self.lcm = lc
         self.number = number;
@@ -127,20 +136,32 @@ class PiEMOSReceiver(SocketServer.UDPServer):
     def publish(self, topic, msg):
         self.lcm.publish(topic, msg.encode())
 
+remote_base_address = '10.20.34.10{}'
+remote_base_port = 6000
+local_base_port = 6000
+
 
 def main():
     lc = lcm.LCM('udpm://239.255.76.67:7667?ttl=1')
     parser = argparse.ArgumentParser()
-    parser.add_argument('--address', type=str, action='store')
-    parser.add_argument('--port', type=int, action='store')
+    parser.add_argument('--local-port', type=int, action='store')
+    parser.add_argument('--remote-port', type=int, action='store')
+    parser.add_argument('--remote-address', type=str, action='store')
     parser.add_argument('--number', type=int, action='store')
     args = parser.parse_args()
-    if not args.address:
-        print('Need address!')
+    vals = [args.remote_address, args.remote_port, args.local_port]
+    if any(vals) and not all(vals):
+        print('Missing an argument')
+        print('Should have remote-address, local-address, and local-port')
+        print('Alternatively, only pass number')
         return
-    bridge = PiEMOSBridge((args.address, args.port), args.number, lc)
+    if args.number is not None:
+        args.local_port = local_base_port + args.number
+        args.remote_port = remote_base_port + args.number
+        args.remote_address = remote_base_address.format(args.number)
+    bridge = PiEMOSBridge((args.remote_address, args.remote_port), args.number, lc)
     bridge.start()
-    piemos_receiver = PiEMOSReceiver(lc, ('', args.port), args.number).serve_forever()
+    piemos_receiver = PiEMOSReceiver(lc, ('', args.local_port), args.number).serve_forever()
 
 
 if __name__ == '__main__':
