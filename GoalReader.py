@@ -58,9 +58,6 @@ class ReaderReactor(object):
         return dict([(dev.address, 0) for dev in self.readers])
 
     def get_more_readers(self):
-        # The following method usually works, but causes random crashes
-        #return
-
         try:
             devs = self.get_readers()
         except usb.core.USBError as e:

@@ -1,6 +1,11 @@
 #!/usr/bin/env python2.7
 from __future__ import print_function
+
+import Forseti
 import Tkinter
+import lcm
+import threading
+import timer
 tki = Tkinter
 
 app = tki.Tk()
@@ -101,7 +106,28 @@ class Match(object):
             self.teams = [Team(0, 'Team {}'.format(i), 'blue' if i < 2 else 'gold') for i in range(4)]
         else:
             self.teams = teams
+        self.lc = lcm.LCM('udpm://239.255.76.67:7667?ttl=1')
         self.frame = None
+        self.timer = timer.Remote()
+        self.time = 0
+        self.time_label = None
+        self.stage_label = None
+        import threading
+        self.lc.subscribe('Timer/Time', self.handle_time)
+        thread = threading.Thread(target=self._loop)
+        thread.daemon = True
+        thread.start()
+
+    def _loop(self):
+        while True:
+            self.lc.handle()
+
+    def handle_time(self, channel, data):
+        msg = Forseti.Time.decode(data)
+        print('Got time', msg.game_time_so_far)
+        self.time_label['text'] = '{}:{:02}'.format(msg.stage_time_so_far // 60,
+                msg.stage_time_so_far % 60)
+        self.stage_label['text'] = msg.stage_name
 
     def add_gui(self, root):
         frame = tki.Frame(root)
@@ -113,9 +139,11 @@ class Match(object):
         pause['command'] = self.pause
         initialize = tki.Button(command_frame, text='Initialize')
         initialize['command'] = self.initialize
-        state = tki.Label(command_frame, text='Auto')
-        timer = tki.Label(command_frame, text='2:00')
-        for wid in [start, pause, initialize, state, timer]:
+        label = tki.Label(command_frame, text='Unknown')
+        timer = tki.Label(command_frame, text='No time')
+        self.time_label = timer
+        self.stage_label = label
+        for wid in [start, pause, initialize, label, timer]:
             wid.pack(side='left')
         left_teams = tki.Frame(frame)
         left_teams['background'] = 'blue'
@@ -130,17 +158,17 @@ class Match(object):
             self.teams[i].add_gui(right_teams).pack(side='top')
         frame.pack(side='bottom')
 
-    def timer_loop(self):
-        start_time = time.time()
-
     def start(self):
         print('Start')
+        self.timer.start()
 
     def pause(self):
         print('Pause')
+        self.timer.pause()
 
     def initialize(self):
         print('Initialize')
+        self.timer.reset_match()
 
 goals = [Goal(goal_frame, i) for i in range(4)]
 
