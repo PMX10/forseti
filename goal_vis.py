@@ -28,7 +28,7 @@ class Board(wx.Panel):
     def __init__(self, parent, lcm):
         wx.Panel.__init__(self, parent)
         self.lcm = lcm;
-        subscription = self.lcm.subscribe("Goals/Goals", self.msg_handler)
+        self.lcm.subscribe("Goals/Goals", self.msg_handler)
         self._read_thread = threading.Thread(target=self._read_loop)
         self._read_thread.daemon = True
         # self._write_thread = threading.Thread(target=self._write_loop)
@@ -41,7 +41,10 @@ class Board(wx.Panel):
         self.goalboxes.goals = [[1,2,1,0,0], [0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
         self.timer = wx.Timer(self, Board.ID_TIMER)
         self.Bind(wx.EVT_PAINT, self.OnPaint)
+        self.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
         self.Bind(wx.EVT_TIMER, self.OnTimer, id=Board.ID_TIMER)
+        self.selected_goal = 0
+        self.selected_box = 0
 
     def read_start(self):
         self._read_thread.start()
@@ -101,45 +104,7 @@ class Board(wx.Panel):
         self.read_start()
         self.health_start()
 
-    def drawGoals(self, dc):
-        for goal in range(0, 4):
-            for box in range(0, 5):
-                val = msg.goals[goal][box]
-#                       print("received goal=" + str(goal) + ", box=" + str(box) + ", value=" + str(val))
-
-    def drawSquare(self, dc, x, y, shape):
-        colors = ['#000000', '#CC6666', '#66CC66', '#6666CC',
-                  '#CCCC66', '#CC66CC', '#66CCCC', '#DAAA00']
-
-        light = ['#000000', '#F89FAB', '#79FC79', '#7979FC',
-                 '#FCFC79', '#FC79FC', '#79FCFC', '#FCC600']
-
-        dark = ['#000000', '#803C3B', '#3B803B', '#3B3B80',
-                '#80803B', '#803B80', '#3B8080', '#806200']
-
-        pen = wx.Pen(light[shape])
-        pen.SetCap(wx.CAP_PROJECTING)
-        dc.SetPen(pen)
-
-        dc.DrawLine(x, y + self.squareHeight() - 1, x, y)
-        dc.DrawLine(x, y, x + self.squareWidth() - 1, y)
-
-        darkpen = wx.Pen(dark[shape])
-        darkpen.SetCap(wx.CAP_PROJECTING)
-        dc.SetPen(darkpen)
-
-        dc.DrawLine(x + 1, y + self.squareHeight() - 1,
-                    x + self.squareWidth() - 1, y + self.squareHeight() - 1)
-        dc.DrawLine(x + self.squareWidth() - 1,
-                    y + self.squareHeight() - 1, x + self.squareWidth() - 1, y + 1)
-
-        dc.SetPen(wx.TRANSPARENT_PEN)
-        dc.SetBrush(wx.Brush(colors[shape]))
-        dc.DrawRectangle(x + 1, y + 1, self.squareWidth() - 2,
-                         self.squareHeight() - 2)
-
     def OnTimer(self, event):
-        #print "repainting"
         self.Refresh()
 
     def OnPaint(self, event):
@@ -148,6 +113,8 @@ class Board(wx.Panel):
 
         dc.SetPen(wx.Pen('#ffffff'))
         dc.SetBrush(wx.Brush("#0066ff"))
+        width = self.GetClientSize().GetWidth() / 4
+        height = self.GetClientSize().GetHeight() / 6
         self.flagsLock.acquire()
         for goal in range(0,4):
             for box in range(0,5):
@@ -158,8 +125,52 @@ class Board(wx.Panel):
                     dc.SetBrush(wx.Brush("#0000ff"))
                 elif boxval == 2:
                     dc.SetBrush(wx.Brush("#ff0000"))
-                dc.DrawRectangle(goal * 100, box * 100, 100, 100)
+                dc.DrawRectangle(goal * width, (4- box) * height, width, height)
+                dc.DrawText("goal" + str(goal) + ",box" + str(box), goal * width,  (4 - box) * height )
+        dc.SetBrush(wx.Brush("#00ff00"))
+        dc.DrawRectangle(self.selected_goal * width, 5 * height, width, height / 10)
+
         self.flagsLock.release()
+
+
+    def OnKeyDown(self, event):
+        print("event=" + str(event))
+        keycode = event.GetKeyCode()
+        print("keycode=" + str(keycode))
+        if keycode == wx.WXK_LEFT:
+            self.selected_goal = self.selected_goal - 1
+            if self.selected_goal < 0:
+                self.selected_goal = 0
+        elif keycode == wx.WXK_RIGHT:
+            self.selected_goal = self.selected_goal + 1
+            if self.selected_goal > 3:
+                self.selected_goal = 3
+
+
+        # if not self.isStarted or self.curPiece.shape() == Tetrominoes.NoShape:
+        #     event.Skip()
+        #     return
+
+
+        # if keycode == ord('P') or keycode == ord('p'):
+        #     self.pause()
+        #     return
+        # if self.isPaused:
+        #     return
+        # elif keycode == wx.WXK_LEFT:
+        #     self.tryMove(self.curPiece, self.curX - 1, self.curY)
+        # elif keycode == wx.WXK_RIGHT:
+        #     self.tryMove(self.curPiece, self.curX + 1, self.curY)
+        # elif keycode == wx.WXK_DOWN:
+        #     self.tryMove(self.curPiece.rotatedRight(), self.curX, self.curY)
+        # elif keycode == wx.WXK_UP:
+        #     self.tryMove(self.curPiece.rotatedLeft(), self.curX, self.curY)
+        # elif keycode == wx.WXK_SPACE:
+        #     self.dropDown()
+        # elif keycode == ord('D') or keycode == ord('d'):
+        #     self.oneLineDown()
+        # else:
+        #     event.Skip()
 
 if __name__ == '__main__':
     print "starting goal_vis..."
