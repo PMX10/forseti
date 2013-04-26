@@ -1,0 +1,7 @@
+package Forseti;
+
+struct VideoVersusText {
+    string LeftAllianceText;
+    string RightAllianceText;
+    string MatchText;
+}

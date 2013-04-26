@@ -1,0 +1,7 @@
+package Forseti;
+
+struct VideoShow {
+    boolean ShowFlags;
+    boolean ShowTimer;
+    boolean ShowScore;
+}
