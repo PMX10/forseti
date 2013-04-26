@@ -13,12 +13,12 @@ class Timer(object):
         self.segment_start_time = time.time()
         self.running = False
 
-    def this_segment_time(self):
+    def _this_segment_time(self):
         return time.time() - self.segment_start_time
 
     def time(self):
         if self.running:
-            return sum(self.segments) + self.this_segment_time()
+            return sum(self.segments) + self._this_segment_time()
         else:
             return sum(self.segments)
 
@@ -32,7 +32,7 @@ class Timer(object):
             print('Timer already paused!')
             return self
         self.running = False
-        self.segments.append(self.this_segment_time())
+        self.segments.append(self._this_segment_time())
         return self
 
     def add(self, additional_time):
@@ -76,6 +76,11 @@ class MatchTimer(object):
             self.stage_index += 1
             self.stage_timer.reset()
             self.stage_timer.start()
+            self.on_stage_change(self.stages[self.stage_index - 1],
+                self.stages[self.stage_index])
+
+    def on_stage_change(self, old_stage, new_stage):
+        print('Changed stage')
 
     def start(self):
         self.match_timer.start()
@@ -124,6 +129,12 @@ class MatchTimer(object):
             'reset_match': self.reset_match,
             'reset_stage': self.reset_stage
         }[msg.command_name]()
+
+class ControlDataSender(object):
+
+    def __init__(self, lc, timer):
+        self.lc = lc
+        self.timer = timer
 
 
 class Remote(object):
