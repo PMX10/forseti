@@ -47,7 +47,9 @@ class VideoPileBridge(object):
                 {
                     "ShowFlags": bool(msg.ShowFlags),
                     "ShowTimer": bool(msg.ShowTimer),
-                    "ShowScore": bool(msg.ShowScore)
+                    "ShowScore": bool(msg.ShowScore),
+                    "ShowSchedule": bool(msg.ShowSchedule),
+                    "ShowShroud" : bool(msg.ShowShroud)
                     }
                 ))
 

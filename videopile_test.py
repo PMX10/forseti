@@ -19,9 +19,11 @@ def main():
     data = {
         "ShowFlags":True,
         "ShowTimer":True,
+        "ShowSchedule":True,
+        "ShowScore":False,
+        "ShowShroud":False,
         "Flags":
             [1,1,2,0,0,
-
              0,0,0,0,0,
              2,1,0,0,0,
              1,1,0,0,0],
@@ -34,7 +36,8 @@ def main():
     print("payload=" + data_json)
 
     while True:
-        sock.sendto(data_json, ('10.20.34.104', 4999))
+        print ('sending', data_json)
+        sock.sendto(data_json, ('10.20.34.120', 4999))
         time.sleep(1)
 
 

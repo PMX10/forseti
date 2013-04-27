@@ -4,4 +4,6 @@ struct VideoShow {
     boolean ShowFlags;
     boolean ShowTimer;
     boolean ShowScore;
+    boolean ShowSchedule;
+    boolean ShowShroud;
 }
