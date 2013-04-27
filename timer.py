@@ -83,9 +83,9 @@ class MatchTimer(LCMNode):
     def __init__(self, lc, match):
         self.lc = lc
         self.match = match
-        self.stages = [Period("Setup", 0), Period("Autonomous", 20),
-            Period("AutonomousPause", 0), Period("Teleop", 100),
-            Period("End", 0)]
+        self.stages = [Period('Start', 0), Period('Setup', 0.2), 
+            Period('Autonomous', 20), Period('AutonomousPause', 0),
+            Period('Teleop', 100), Period('End', 0)]
         self.stage_index = 0
         self.match_timer = Timer()
         self.stage_timer = Timer()
@@ -103,7 +103,7 @@ class MatchTimer(LCMNode):
         return self.stages[self.stage_index]
 
     def check_for_stage_change(self):
-        if self.stage_timer.time() >= self.current_stage().length:
+        if self.stage_timer.time() > self.current_stage().length:
             self.on_stage_change(self.stages[self.stage_index - 1],
                 self.stages[self.stage_index])
             if self.stage_index + 1 < len(self.stages):
@@ -114,7 +114,7 @@ class MatchTimer(LCMNode):
                 self.stage_timer.start()
 
     def on_stage_change(self, old_stage, new_stage):
-        if new_stage.name == 'Setup':
+        if new_stage.name == 'Start':
             self.match.stage = 'Autonomous'
             self.match.disable_all()
             self.pause()
@@ -214,24 +214,28 @@ class Match(object):
 
 
 
-class ControlDataSender(LCMNode):
+class ControlDataSender(Node):
 
-    def __init__(self, lc, match):
+    def __init__(self, lc, match, timer):
         self.lc = lc
         self.match = match
+        self.timer = timer
+        self.thread = threading.Thread()
+        self.thread.daemon = True
         self.start_thread()
 
     def _loop(self):
         while True:
+            time.sleep(0.1)
             for i in range(len(self.match.teams)):
                 self.send(i + 1, self.match.teams[i])
 
     def send(self, piemos_num, team):
-        msg = ControlData()
+        msg = Forseti.ControlData()
         msg.TeleopEnabled = self.match.stage == 'Teleop'
         msg.HaltRadio = False
         msg.AutonomousEnabled = self.match.stage == 'Autonomous'
-        msg.RobotEnabled = team.enabled
+        msg.RobotEnabled = self.timer.match_timer.running
         msg.Stage = self.match.stage
         msg.Time = self.match.time
         self.lc.publish('PiEMOS{}/Control'.format(piemos_num), msg.encode())
@@ -364,6 +368,7 @@ def main():
     lc = lcm.LCM('udpm://239.255.76.67:7667?ttl=1')
     match = Match([0] * 4)
     timer = MatchTimer(lc, match)
+    cd_sender = ControlDataSender(lc, match, timer)
     sched = Schedule(lc, timer)
     sched.load()
     timer.run()
