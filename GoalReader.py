@@ -125,10 +125,7 @@ class ReaderReactor(object):
                     # If the reader encountered an error besides timeout,
                     # remove it.
 
-                    # This has been commented out--
-                    # removing it doesn't seem to break anything,
-                    # but keeping it reduces the stability.
-                    #self.readers[i] = None
+                    self.readers[i] = None
                     self.remove_callback(self, i)
                 continue
             if self.last_ids[i] != val:
