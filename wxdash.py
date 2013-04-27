@@ -13,14 +13,15 @@ GOLD = (241, 169, 50)
 
 class TeamPanel(wx.Panel):
 
-    def __init__(self, remote, number, name='', colour=None, *args, **kwargs):
+    def __init__(self, remote, letter, number, name, colour, *args, **kwargs):
         super(TeamPanel, self).__init__(*args, **kwargs) 
         self.remote = remote
-        self.InitUI(number, name, colour)
+        self.InitUI(letter, number, name, colour)
 
-    def InitUI(self, number, name, colour=None):
+    def InitUI(self, letter, number, name, colour=None):
         if colour is not None:
             self.SetBackgroundColour(colour)
+
 
         dc = wx.ScreenDC()
         self.num_ctrl = wx.TextCtrl(self, size=(dc.GetCharWidth() * 2, dc.GetCharHeight()))
@@ -30,19 +31,20 @@ class TeamPanel(wx.Panel):
         self.name_ctrl.AppendText(name)
 
         name_num_box = wx.BoxSizer(wx.HORIZONTAL)
+        name_num_box.Add(wx.StaticText(self, label=letter))
         name_num_box.Add(self.num_ctrl)
         name_num_box.Add(self.name_ctrl)
 
-        button_box = wx.BoxSizer(wx.HORIZONTAL)
-        button_box.Add(wx.Button(self, label='Reset'))
-        button_box.Add(wx.Button(self, label='Configure'))
-        button_box.Add(wx.Button(self, label='Disable'))
+        #button_box = wx.BoxSizer(wx.HORIZONTAL)
+        #button_box.Add(wx.Button(self, label='Reset'))
+        #button_box.Add(wx.Button(self, label='Configure'))
+        #button_box.Add(wx.Button(self, label='Disable'))
 
-        vbox = wx.BoxSizer(wx.VERTICAL)
-        vbox.Add(name_num_box, flag=wx.CENTER)
-        vbox.Add(button_box, flag=wx.CENTER)
+        self.vbox = wx.BoxSizer(wx.VERTICAL)
+        self.vbox.Add(name_num_box, flag=wx.CENTER)
+        #vbox.Add(button_box, flag=wx.CENTER)
 
-        self.SetSizer(vbox)
+        self.SetSizer(self.vbox)
         self.Show(True)
 
     @property
@@ -82,14 +84,17 @@ class MatchControl(wx.Panel):
         match_number.Add(self.match_num_ctrl)
         vbox.Add(match_number, flag=wx.CENTER)
 
-        teamSizer = wx.GridSizer(2, 2)
+        teamSizer = wx.GridSizer(3, 2)
         self.team_panels = [
-            TeamPanel(self.remote, 0, 'Unknown Team', BLUE, self),
-            TeamPanel(self.remote, 0, 'Unknown Team', GOLD, self),
-            TeamPanel(self.remote, 0, 'Unknown Team', BLUE, self),
-            TeamPanel(self.remote, 0, 'Unknown Team', GOLD, self),
+            TeamPanel(self.remote, 'A', 0, 'Unknown Team', BLUE, self),
+            TeamPanel(self.remote, 'C', 0, 'Unknown Team', GOLD, self),
+            TeamPanel(self.remote, 'B', 0, 'Unknown Team', BLUE, self),
+            TeamPanel(self.remote, 'D', 0, 'Unknown Team', GOLD, self),
             ]
-        teamSizer.AddMany([(panel, 0) for panel in self.team_panels])
+        teamSizer.AddMany(
+                [wx.StaticText(self, label='Blue Team'),
+                 wx.StaticText(self, label='Gold Team')] +
+                [(panel, 0) for panel in self.team_panels])
         vbox.Add(teamSizer, flag=wx.CENTER)
 
         buttons = wx.BoxSizer(wx.HORIZONTAL)
@@ -99,12 +104,12 @@ class MatchControl(wx.Panel):
         self.go_button.Bind(wx.EVT_BUTTON, self.do_go)
         self.pause_button = wx.Button(self, label='Pause')
         self.pause_button.Bind(wx.EVT_BUTTON, self.do_pause)
-        self.save_button = wx.Button(self, label='Save')
-        self.save_button.Bind(wx.EVT_BUTTON, self.do_save)
+        #self.save_button = wx.Button(self, label='Save')
+        #self.save_button.Bind(wx.EVT_BUTTON, self.do_save)
         self.time_text = wx.StaticText(self, label='0:00')
         self.stage_text = wx.StaticText(self, label='Unknown')
         self.remote.time_text = self.time_text
-        buttons.Add(self.save_button, flag=wx.LEFT)
+        #buttons.Add(self.save_button, flag=wx.LEFT)
         buttons.Add(self.init_button)
         buttons.Add(self.go_button)
         buttons.Add(self.pause_button)
@@ -210,14 +215,14 @@ class MainWindow(wx.Frame):
         match_control = MatchControl(self.remote, self)
         schedule_control = ScheduleControl(self.remote, match_control, self)
         self.remote.match_control = match_control
-        hbox = wx.BoxSizer(wx.HORIZONTAL)
-        hbox.Add(schedule_control, 1, wx.EXPAND | wx.ALIGN_CENTER | wx.ALL, 8)
-        hbox.Add(match_control, 0, wx.ALIGN_CENTER | wx.ALL, 8)
+        vbox = wx.BoxSizer(wx.VERTICAL)
+        vbox.Add(match_control, 0, wx.ALIGN_CENTER | wx.ALIGN_TOP, 8)
+        vbox.Add(schedule_control, 1, wx.EXPAND | wx.ALIGN_CENTER | wx.ALL, 8)
 
         self.Bind(wx.EVT_MENU, self.OnQuit, fitem)
 
         self.SetSize((800, 600))
-        self.SetSizer(hbox)
+        self.SetSizer(vbox)
         self.SetTitle('Forseti Dashboard')
         self.Centre()
         self.Show(True)
