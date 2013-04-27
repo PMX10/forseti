@@ -46,42 +46,42 @@
   "readerType": "Grizzly", 
   "uid": "1984b687", 
   "objectId": 10, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "761719423", 
   "readerType": "Grizzly", 
   "uid": "2d66ea7f", 
   "objectId": 10, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "428179519", 
   "readerType": "Grizzly", 
   "uid": "1985803f", 
   "objectId": 10, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "762347207", 
   "readerType": "Grizzly", 
   "uid": "2d707ec7", 
   "objectId": 10, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "762415063", 
   "readerType": "Grizzly", 
   "uid": "2d7187d7", 
   "objectId": 10, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "761863703", 
   "readerType": "Grizzly", 
   "uid": "2d691e17", 
   "objectId": 10, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763779223", 
@@ -130,42 +130,42 @@
   "readerType": "Grizzly", 
   "uid": "2d71cd37", 
   "objectId": 9, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "761844743", 
   "readerType": "Grizzly", 
   "uid": "2d68d407", 
   "objectId": 9, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "763740927", 
   "readerType": "Grizzly", 
   "uid": "2d85c2ff", 
   "objectId": 9, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "763250927", 
   "readerType": "Grizzly", 
   "uid": "2d7e48ef", 
   "objectId": 9, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "762434319", 
   "readerType": "Grizzly", 
   "uid": "2d71d30f", 
   "objectId": 9, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "428177351", 
   "readerType": "Grizzly", 
   "uid": "198577c7", 
   "objectId": 9, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "762406015", 
@@ -256,42 +256,42 @@
   "readerType": "Grizzly", 
   "uid": "2c49bfb7", 
   "objectId": 2, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "742628671", 
   "readerType": "Grizzly", 
   "uid": "2c439d3f", 
   "objectId": 2, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "743233887", 
   "readerType": "Grizzly", 
   "uid": "2c4cd95f", 
   "objectId": 2, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763502031", 
   "readerType": "Grizzly", 
   "uid": "2d821dcf", 
   "objectId": 2, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "742599487", 
   "readerType": "Grizzly", 
   "uid": "2c432b3f", 
   "objectId": 2, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "428129503", 
   "readerType": "Grizzly", 
   "uid": "1984bcdf", 
   "objectId": 2, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "743469791", 
@@ -340,42 +340,42 @@
   "readerType": "Grizzly", 
   "uid": "2c4ff2df", 
   "objectId": 3, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "763659255", 
   "readerType": "Grizzly", 
   "uid": "2d8483f7", 
   "objectId": 3, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "428125407", 
   "readerType": "Grizzly", 
   "uid": "1984acdf", 
   "objectId": 3, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "742027687", 
   "readerType": "Grizzly", 
   "uid": "2c3a71a7", 
   "objectId": 3, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "742652751", 
   "readerType": "Grizzly", 
   "uid": "2c43fb4f", 
   "objectId": 3, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "761874423", 
   "readerType": "Grizzly", 
   "uid": "2d6947f7", 
   "objectId": 3, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "762294967", 
@@ -466,84 +466,84 @@
   "readerType": "Grizzly", 
   "uid": "2d7e9cbf", 
   "objectId": 15, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "742052087", 
   "readerType": "Grizzly", 
   "uid": "2c3ad0f7", 
   "objectId": 15, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "743052543", 
   "readerType": "Grizzly", 
   "uid": "2c4a14ff", 
   "objectId": 15, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "763920503", 
   "readerType": "Grizzly", 
   "uid": "2d888077", 
   "objectId": 15, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "743643407", 
   "readerType": "Grizzly", 
   "uid": "2c53190f", 
   "objectId": 15, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "743237751", 
   "readerType": "Grizzly", 
   "uid": "2c4ce877", 
   "objectId": 15, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "743053679", 
   "readerType": "Grizzly", 
   "uid": "2c4a196f", 
   "objectId": 12, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "741905495", 
   "readerType": "Grizzly", 
   "uid": "2c389457", 
   "objectId": 12, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763465543", 
   "readerType": "Grizzly", 
   "uid": "2d818f47", 
   "objectId": 12, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "762421447", 
   "readerType": "Grizzly", 
   "uid": "2d71a0c7", 
   "objectId": 12, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763781367", 
   "readerType": "Grizzly", 
   "uid": "2d8660f7", 
   "objectId": 12, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763721231", 
   "readerType": "Grizzly", 
   "uid": "2d85760f", 
   "objectId": 12, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "761774119", 
@@ -634,42 +634,42 @@
   "readerType": "Grizzly", 
   "uid": "2d69627f", 
   "objectId": 19, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "428175215", 
   "readerType": "Grizzly", 
   "uid": "19856f6f", 
   "objectId": 19, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "428135583", 
   "readerType": "Grizzly", 
   "uid": "1984d49f", 
   "objectId": 19, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "762311783", 
   "readerType": "Grizzly", 
   "uid": "2d6ff467", 
   "objectId": 19, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "762446783", 
   "readerType": "Grizzly", 
   "uid": "2d7203bf", 
   "objectId": 19, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "428136199", 
   "readerType": "Grizzly", 
   "uid": "1984d707", 
   "objectId": 19, 
-  "objectType": 2
+  "objectType": 1
  }, 
  {
   "tagId": "761531839", 
@@ -802,42 +802,42 @@
   "readerType": "Grizzly", 
   "uid": "2d6aac07", 
   "objectId": 20, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "761950127", 
   "readerType": "Grizzly", 
   "uid": "2d6a6faf", 
   "objectId": 20, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763779191", 
   "readerType": "Grizzly", 
   "uid": "2d865877", 
   "objectId": 20, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "763826999", 
   "readerType": "Grizzly", 
   "uid": "2d871337", 
   "objectId": 20, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "428135319", 
   "readerType": "Grizzly", 
   "uid": "1984d397", 
   "objectId": 20, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": "762007191", 
   "readerType": "Grizzly", 
   "uid": "2d6b4e97", 
   "objectId": 20, 
-  "objectType": 1
+  "objectType": 2
  }, 
  {
   "tagId": 761856039, 
