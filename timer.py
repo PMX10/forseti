@@ -87,7 +87,7 @@ class MatchTimer(LCMNode):
         self.match = match
         self.stages = [Period('Setup', 0), 
             Period('Autonomous', 20, True), Period('Paused', 0),
-            Period('Teleop', 100, True), Period('End', 0)]
+            Period('Teleop', 120, True), Period('End', 0)]
         self.stage_index = 0
         self.match_timer = Timer()
         self.stage_timer = Timer()
@@ -160,7 +160,7 @@ class MatchTimer(LCMNode):
 
     def run(self):
         while self.stage_index < len(self.stages):
-            time.sleep(0.1)
+            time.sleep(0.3)
             self.check_for_stage_change()
             self.match.time = int(self.match_timer.time())
             msg = Forseti.Time()
