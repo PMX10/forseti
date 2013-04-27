@@ -87,7 +87,7 @@ class MatchTimer(LCMNode):
         self.match = match
         self.stages = [Period('Setup', 0), 
             Period('Autonomous', 20, True), Period('Paused', 0),
-            Period('Teleop', 100), Period('End', 0)]
+            Period('Teleop', 100, True), Period('End', 0)]
         self.stage_index = 0
         self.match_timer = Timer()
         self.stage_timer = Timer()
@@ -110,14 +110,12 @@ class MatchTimer(LCMNode):
             self.stage_timer.reset()
             self.stage_ended = True
             if self.current_stage().autocontinue:
-                print('Skipping from stage', self.current_stage().name)
-                print(self.current_stage().autocontinue)
                 self.stage_index += 1
                 self.on_stage_change(self.stages[self.stage_index - 1],
                     self.stages[self.stage_index])
                 self.pause()
             else:
-                print('Stage = ', self.current_stage().name)
+                #print('Stage = ', self.current_stage().name)
                 self.pause()
 
     def on_stage_change(self, old_stage, new_stage):
@@ -144,6 +142,8 @@ class MatchTimer(LCMNode):
         if self.stage_ended and self.stage_index + 1 < len(self.stages):
             self.stage_index += 1
             self.stage_ended = False
+            self.on_stage_change(self.stages[self.stage_index - 1],
+                self.stages[self.stage_index])
 
     def pause(self):
         self.stage_timer.pause()
@@ -237,8 +237,9 @@ class ControlDataSender(Node):
                 self.send(i + 1, self.match.teams[i])
 
     def send(self, piemos_num, team):
+        #print('Sending')
         msg = Forseti.ControlData()
-        msg.TeleopEnabled = self.match.stage == 'Teleop'
+        msg.TeleopEnabled = self.match.stage in ['Teleop', 'Paused']
         msg.HaltRadio = False
         msg.AutonomousEnabled = self.match.stage == 'Autonomous'
         msg.RobotEnabled = self.timer.match_timer.running
@@ -361,7 +362,6 @@ class Schedule(LCMNode):
         self.send_schedule()
 
     def handle_init(self, channel, data):
-        print('initing')
         msg = Forseti.Match.decode(data)
         configurator.do_config(self.lc, msg.team_numbers)
         self.timer.match.teams = [Team(msg.team_numbers[i],

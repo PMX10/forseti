@@ -31,11 +31,11 @@ class PiEMOSBridge(object):
         self._read_thread.start()
 
     def _read_loop(self):
-        try:
-            while True:
-                self.lcm.handle()
-        except:
-            pass
+        while True:
+            try:
+                    self.lcm.handle()
+            except:
+                pass
 
     def send(self, msg):
         print("sending msg=" + msg)
