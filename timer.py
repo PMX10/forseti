@@ -74,17 +74,19 @@ class Timer(object):
 
 class Period(object):
 
-    def __init__(self, name, length):
+    def __init__(self, name, length, autocontinue=False):
         self.name = name
         self.length = length
+        self.autocontinue = autocontinue
 
 class MatchTimer(LCMNode):
 
     def __init__(self, lc, match):
+        self.stage_ended = False
         self.lc = lc
         self.match = match
-        self.stages = [Period('Start', 0), Period('Setup', 0.2), 
-            Period('Autonomous', 20), Period('AutonomousPause', 0),
+        self.stages = [Period('Setup', 0), 
+            Period('Autonomous', 20, True), Period('Paused', 0),
             Period('Teleop', 100), Period('End', 0)]
         self.stage_index = 0
         self.match_timer = Timer()
@@ -98,30 +100,35 @@ class MatchTimer(LCMNode):
         self.match_timer.reset()
         self.stage_timer.reset()
         self.on_stage_change(self.stages[self.stage_index], self.stages[0])
+        self.stage_ended = True
 
     def current_stage(self):
         return self.stages[self.stage_index]
 
     def check_for_stage_change(self):
         if self.stage_timer.time() > self.current_stage().length:
-            self.on_stage_change(self.stages[self.stage_index - 1],
-                self.stages[self.stage_index])
-            if self.stage_index + 1 < len(self.stages):
-                self.stage_index += 1
-            was_running = self.stage_timer.running
             self.stage_timer.reset()
-            if was_running:
-                self.stage_timer.start()
+            self.stage_ended = True
+            if self.current_stage().autocontinue:
+                print('Skipping from stage', self.current_stage().name)
+                print(self.current_stage().autocontinue)
+                self.stage_index += 1
+                self.on_stage_change(self.stages[self.stage_index - 1],
+                    self.stages[self.stage_index])
+                self.pause()
+            else:
+                print('Stage = ', self.current_stage().name)
+                self.pause()
 
     def on_stage_change(self, old_stage, new_stage):
-        if new_stage.name == 'Start':
+        if new_stage.name == 'Setup':
             self.match.stage = 'Autonomous'
             self.match.disable_all()
             self.pause()
         elif new_stage.name == 'Autonomous':
             self.match.stage = 'Autonomous'
             self.match.enable_all()
-        elif new_stage.name == 'AutonomousPause':
+        elif new_stage.name == 'Paused':
             self.match.stage = 'Paused'
             self.match.disable_all()
             self.pause()
@@ -134,6 +141,9 @@ class MatchTimer(LCMNode):
     def start(self):
         self.match_timer.start()
         self.stage_timer.start()
+        if self.stage_ended and self.stage_index + 1 < len(self.stages):
+            self.stage_index += 1
+            self.stage_ended = False
 
     def pause(self):
         self.stage_timer.pause()
@@ -147,10 +157,6 @@ class MatchTimer(LCMNode):
         self.stage_index = 0
         self.stage_timer.reset()
         self.match_timer.reset()
-
-    def start(self):
-        self.stage_timer.start()
-        self.match_timer.start()
 
     def run(self):
         while self.stage_index < len(self.stages):
@@ -196,7 +202,7 @@ class Match(object):
 
     def __init__(self, team_numbers):
         self.teams = [Team(num) for num in team_numbers]
-        self.stage = 'Unknown'
+        self.stage = 'Setup'
         self.time = 0
 
     def get_team(self, team_number):
@@ -361,7 +367,7 @@ class Schedule(LCMNode):
         self.timer.match.teams = [Team(msg.team_numbers[i],
             msg.team_names[i]) for i in range(4)]
         self.timer.reset()
-        self.timer.start()
+        #self.timer.start()
 
 
 def main():
