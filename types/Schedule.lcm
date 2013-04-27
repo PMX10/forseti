@@ -1,0 +1,6 @@
+package Forseti;
+
+struct Schedule {
+	int32_t num_matches;
+	Match matches[num_matches];
+}

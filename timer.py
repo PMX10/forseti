@@ -7,7 +7,10 @@ import json
 import lcm
 import threading
 import time
+import random
 import os
+
+lc_lock = threading.Lock()
 
 class Node(object):
 
@@ -18,6 +21,18 @@ class Node(object):
 
     def _loop(self):
         raise NotImplemented()
+
+class LCMNode(Node):
+
+    def _loop(self):
+        while True:
+            try:
+                lc_lock.acquire()
+                self.lc.handle()
+            except Exception as ex:
+                print('Got exception while handling lcm message', ex)
+            finally:
+                lc_lock.release()
 
 class Timer(object):
 
@@ -42,7 +57,6 @@ class Timer(object):
 
     def pause(self):
         if not self.running:
-            print('Timer already paused!')
             return self
         self.running = False
         self.segments.append(self._this_segment_time())
@@ -64,14 +78,14 @@ class Period(object):
         self.name = name
         self.length = length
 
-class MatchTimer(Node):
+class MatchTimer(LCMNode):
 
     def __init__(self, lc, match):
         self.lc = lc
         self.match = match
-        self.stages = [Period("Setup", 5), Period("Autonomous", 20),
+        self.stages = [Period("Setup", 0), Period("Autonomous", 20),
             Period("AutonomousPause", 0), Period("Teleop", 100),
-            Period("End", 130)]
+            Period("End", 0)]
         self.stage_index = 0
         self.match_timer = Timer()
         self.stage_timer = Timer()
@@ -80,10 +94,10 @@ class MatchTimer(Node):
         self.on_stage_change(None, self.stages[0])
 
     def reset(self):
-        self.on_stage_change(self.stages[self.stage_index], self.stages[0])
         self.stage_index = 0
         self.match_timer.reset()
         self.stage_timer.reset()
+        self.on_stage_change(self.stages[self.stage_index], self.stages[0])
 
     def current_stage(self):
         return self.stages[self.stage_index]
@@ -92,14 +106,18 @@ class MatchTimer(Node):
         if self.stage_timer.time() >= self.current_stage().length:
             self.on_stage_change(self.stages[self.stage_index - 1],
                 self.stages[self.stage_index])
-            self.stage_index += 1
+            if self.stage_index + 1 < len(self.stages):
+                self.stage_index += 1
+            was_running = self.stage_timer.running
             self.stage_timer.reset()
-            self.stage_timer.start()
+            if was_running:
+                self.stage_timer.start()
 
     def on_stage_change(self, old_stage, new_stage):
         if new_stage.name == 'Setup':
             self.match.stage = 'Autonomous'
             self.match.disable_all()
+            self.pause()
         elif new_stage.name == 'Autonomous':
             self.match.stage = 'Autonomous'
             self.match.enable_all()
@@ -110,22 +128,20 @@ class MatchTimer(Node):
         elif new_stage.name == 'Teleop':
             self.match.stage = 'Teleop'
             self.match.enable_all()
+        elif new_stage.name == 'End':
+            self.pause()
 
     def start(self):
         self.match_timer.start()
         self.stage_timer.start()
-
-    def _loop(self):
-        while True:
-            self.lc.handle()
 
     def pause(self):
         self.stage_timer.pause()
         self.match_timer.pause()
 
     def reset_stage(self):
-        self.stage_timer.reset()
         self.match_timer.stop()
+        self.stage_timer.reset()
 
     def reset_match(self):
         self.stage_index = 0
@@ -138,7 +154,7 @@ class MatchTimer(Node):
 
     def run(self):
         while self.stage_index < len(self.stages):
-            time.sleep(0.5)
+            time.sleep(0.1)
             self.check_for_stage_change()
             self.match.time = int(self.match_timer.time())
             msg = Forseti.Time()
@@ -146,25 +162,27 @@ class MatchTimer(Node):
             msg.stage_time_so_far = self.stage_timer.time()
             msg.total_stage_time = self.current_stage().length
             msg.stage_name = self.current_stage().name
-            #print('Sending', msg)
-            print('.')
             self.lc.publish('Timer/Time', msg.encode())
 
     def handle_control(self, channel, data):
         msg = Forseti.TimeControl.decode(data)
         print('Received command', msg.command_name)
-        {
+        func = {
             'pause': self.pause,
             'start': self.start,
             'reset_match': self.reset_match,
             'reset_stage': self.reset_stage
-        }[msg.command_name]()
+        }[msg.command_name]
+        func()
 
 class Team(object):
 
-    def __init__(self, number):
+    def __init__(self, number, name=None):
         self.number = number
-        self.name = configurator.get_name(number)
+        if name is None:
+            self.name = configurator.get_team_name(number)
+        else:
+            self.name = name
         self.teleop = False
         self.halt_radio = False
         self.auto = False
@@ -178,26 +196,8 @@ class Match(object):
 
     def __init__(self, team_numbers):
         self.teams = [Team(num) for num in team_numbers]
-        self.stage = 'Uknown'
+        self.stage = 'Unknown'
         self.time = 0
-        #self._teleop = False
-        #self._autop = False
-
-    #@property
-    #def teleop(self):
-        #return self._teleop
-
-    #@teleop.setter
-    #def teleop(self, val):
-        #self._teleop = val
-
-    #@property
-    #def autop(self):
-        #return self._autop
-
-    #@autop.setter
-    #def autop(self):
-        #return self._autop
 
     def get_team(self, team_number):
         for team in self.teams:
@@ -205,33 +205,17 @@ class Match(object):
                 return team
 
     def enable_all(self):
-        for team in teams:
+        for team in self.teams:
             team.enabled = True
 
     def disable_all(self):
-        for team in teams:
+        for team in self.teams:
             team.enabled = False
 
 
 
-class ControlDataSender(Node):
+class ControlDataSender(LCMNode):
 
-    '''
-{
-	"ControlData":{
-		"OperationMode":{
-			"FieldTeleopEnabled":false, 
-			"HaltRadio":false, 
-			"FieldAutonomousEnabled":true, 
-			"FieldRobotEnabled":true
-		}, 
-		"Match":{
-			"Stage":"Setup", 
-			"Time":44
-		}
-	}
-}
-    '''
     def __init__(self, lc, match):
         self.lc = lc
         self.match = match
@@ -277,61 +261,112 @@ class RemoteTimer(object):
         self.send('reset_stage')
 
 
-class Schedule(object):
+class Schedule(LCMNode):
 
-    matches_filename_base = '{}.match'
     matches_dir = 'matches'
 
-    def __init__(self):
-        self.matches = []
+    def __init__(self, lc, timer):
+        self.lc = lc
+        self.timer = timer
+        self.matches = {}
+        self.lc.subscribe('Match/Save', self.handle_save)
+        self.lc.subscribe('Schedule/Load', self.handle_load)
+        self.lc.subscribe('Match/Init', self.handle_init)
+        self.start_thread()
 
     def clear(self):
-        self.matches = []
+        self.matches = {}
 
-    def load(self):
-        self.clear()
+    def load(self, clear_first=True):
+        if clear_first:
+            self.clear()
         i = 1
-        unread_matches = os.listdir(self.matches_dir)
-        try:
-            while True:
-                filename = self.matches_filename_base.format(i)
-                with open(os.path.join(self.matches_dir, filename)) as wfile:
-                    self.matches.append(json.load(wfile))
-                unread_matches.remove(filename)
-                i += 1
-        except IOError:
-            # Couldn't find a match, assume we've loaded all the matches
-            pass
-        assert not unread_matches
-        print(self.matches)
-        
+        for filename in os.listdir(self.matches_dir):
+            try:
+                i = int(filename.split('.')[-2])
+            except IndexError:
+                i = random.getrandbits(31)
+            with open(os.path.join(self.matches_dir, filename)) as wfile:
+                try:
+                    self.matches[i] = json.load(wfile)
+                    self.load_team_names(self.matches[i])
+                except Exception:
+                    print('Could not load match', filename)
 
-def test():
-    t = Timer()
-    time.sleep(1)
-    print('Should be 0', t.time())
-    t.start()
-    time.sleep(1)
-    print('Should be 1', t.time())
-    time.sleep(1)
-    print('Should be 2', t.time())
-    t.pause()
-    time.sleep(1)
-    print('Should be 2', t.time())
-    t.start()
-    time.sleep(1)
-    print('Should be 3', t.time())
-    time.sleep(1)
-    print('Should be 4', t.time())
+    def send_schedule(self):
+        schedule = Forseti.Schedule()
+        for idx, match in self.matches.items():
+            out_match = Forseti.Match()
+            i = 0
+            for alliance in [u'alliance1', u'alliance2']:
+                for team in [u'team1', u'team2']:
+                    print(match[alliance])
+                    out_match.team_numbers[i] = match[alliance][team]
+                    out_match.team_names[i] = \
+                        match[alliance].get(u'{}_name'.format(team), 
+                            'Unknown Team')
+                    i += 1
+            out_match.match_number = idx;
+            schedule.matches.append(out_match)
+        schedule.num_matches = len(schedule.matches)
+
+        self.lc.publish('Schedule/Schedule', schedule.encode())
+
+    def load_team_names(self, match):
+        for alliance in [u'alliance1', u'alliance2']:
+            for team in [u'team1', u'team2']:
+                match[alliance][u'{}_name'.format(team)] = \
+                    configurator.get_team_name(match[alliance][team])
+
+    def handle_save(self, channel, data):
+        msg = Forseti.Match.decode(data)
+        self.matches[msg.match_number] = {
+                u'alliance1': 
+                {
+                    u'team1': msg.teams_numbers[0],
+                    u'team1_name': msg.team_names[0],
+                    u'team2': msg.teams_numbers[1],
+                    u'team2_name': msg.team_names[1],
+                },
+                u'alliance2':
+                {
+                    u'team1': msg.teams_numbers[2],
+                    u'team1_name': msg.team_names[2],
+                    u'team2': msg.teams_numbers[3],
+                    u'team2_name': msg.team_names[3],
+                }}
+        try:
+            filename = '{}.match'.format(msg.match_number)
+            with open(os.path.join(self.matches_dir, filename), 'w') as wfile:
+                json.dump(wfile, self.matches[msg.match_number])
+        except Exception as ex:
+            print('Could not save match', self.matches[msg.match_number], 
+                  'got exception', ex)
+        self.send_schedule()
+
+    def handle_load(self, channel, data):
+        print('Loading!')
+        msg = Forseti.ScheduleLoadCommand.decode(data)
+        self.load(bool(msg.clear_first))
+        self.send_schedule()
+
+    def handle_init(self, channel, data):
+        print('initing')
+        msg = Forseti.Match.decode(data)
+        configurator.do_config(self.lc, msg.team_numbers)
+        self.timer.match.teams = [Team(msg.team_numbers[i],
+            msg.team_names[i]) for i in range(4)]
+        self.timer.reset()
+        self.timer.start()
 
 
 def main():
     lc = lcm.LCM('udpm://239.255.76.67:7667?ttl=1')
-    sched = Schedule()
+    match = Match([0] * 4)
+    timer = MatchTimer(lc, match)
+    sched = Schedule(lc, timer)
     sched.load()
-    #print(configurator.get_team_name(2))
-    #match = Match()
-    #MatchTimer(lc).run()
+    timer.run()
 
 
 if __name__ == '__main__':
