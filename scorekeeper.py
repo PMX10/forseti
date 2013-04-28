@@ -20,7 +20,6 @@ class ScoreKeeper(object):
         self.startTime = time.time()
         self.scorelock = threading.Lock()
         self.score = Score()
-        self.score.blue_penalties = 10
         self.boxvalsToFlagPos = {0:0, 1:1, 2:-1}
 
     def read_run(self):
@@ -70,17 +69,19 @@ class ScoreKeeper(object):
 
             for goal in range(0, 4):
                 cur_score = 0
-                for box in range(0, 5):
+                for box in range(4, -1, -1):
                     val = msg.goals[goal][box]
                     if val == 1:
-                        cur_score = cur_score + 1
+                        cur_score = cur_score + 2
                     elif val == 2:
                         cur_score = cur_score * 2
                 print("cur_score=" + str(cur_score))
                 if (goal % 2 == 0):
                     self.score.gold_boxpoints = self.score.gold_boxpoints + cur_score
+                    print("adding to gold score, score=" + str(self.score.gold_boxpoints))
                 else :
                     self.score.blue_boxpoints = self.score.blue_boxpoints + cur_score
+                    print("adding to blue score, score=" + str(self.score.blue_boxpoints))
             self.score.blue_finalscore = self.score.blue_boxpoints - self.score.blue_penalties
             self.score.gold_finalscore = self.score.gold_boxpoints - self.score.gold_penalties
             print("gold=" + str(self.score.gold_finalscore) + ",\t blue=" + str(self.score.blue_finalscore))
