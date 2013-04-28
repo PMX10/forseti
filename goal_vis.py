@@ -81,39 +81,42 @@ class Board(wx.Panel):
             time.sleep(0.1)
 
     def msg_handler(self, channel, data):
-        print "received message"
-        if channel == "GoalReader/Tags":
-            msg = Tag.decode(data)
-            print ("received tag!")
-            print("reader=" + msg.reader)
-            print("tagId="  + str(msg.tagId))
+        try:
+            print "received message"
+            if channel == "GoalReader/Tags":
+                msg = Tag.decode(data)
+                print ("received tag!")
+                print("reader=" + msg.reader)
+                print("tagId="  + str(msg.tagId))
 
-            self.lcm.publish("GoalReader/TagConfirm", data)
-            try:
-                goal = self.readers_to_goals[msg.reader]
-                print "goal=" + str(goal)
+                self.lcm.publish("GoalReader/TagConfirm", data)
+                try:
+                    goal = self.readers_to_goals[msg.reader]
+                    print "goal=" + str(goal)
 
-                self.selected_tags_lock.acquire()
-                self.selected_tags.append(
-                    {"Goal":goal,
-                     "Type":self.get_object_type(msg.tagId),
-                     "TagId":msg.tagId
-                     })
-                print("tags added")
-                print("selected_tags:" + str(json.dumps(self.selected_tags)))
-                self.selected_tags_lock.release()
-                print ("message handler exiting")
-            except KeyError as e:
-                print "KeyError" + str(e)
+                    self.selected_tags_lock.acquire()
+                    self.selected_tags.append(
+                        {"Goal":goal,
+                         "objectType":self.get_object_type(msg.tagId),
+                         "TagId":msg.tagId
+                         })
+                    print("tags added")
+                    print("selected_tags:" + str(json.dumps(self.selected_tags)))
+                    self.selected_tags_lock.release()
+                    print ("message handler exiting")
+                except KeyError as e:
+                    print "KeyError" + str(e)
+        except Exception as e:
+            print "Error in msg handler=" + str(e)
 
     def get_object_type(self, uid):
         '''
         Returns the object_type of the box associated with the provided uid.
         '''
         for table in self.field_table:
-            if table['tagId'] == unicode(uid):
+            if table['tagId'] == uid:
                 print "object recognized!"
-                return int(table['objectType'])
+                return int(table[u'objectType'])
         return 0 #an unrecognized object has no type
 
     def start(self):
@@ -126,42 +129,45 @@ class Board(wx.Panel):
         self.Refresh()
 
     def OnPaint(self, event):
-        dc = wx.PaintDC(self)
+        try:
+            dc = wx.PaintDC(self)
 
-        dc.SetPen(wx.Pen('#ffffff'))
-        dc.SetBrush(wx.Brush("#0066ff"))
-        width = self.GetClientSize().GetWidth() / 4
-        height = self.GetClientSize().GetHeight() / 10
-        self.goalBoxesLock.acquire()
-        for goal in range(0,4):
-            for box in range(0,5):
-                boxval = self.goalboxes.goals[goal][box]
+            dc.SetPen(wx.Pen('#ffffff'))
+            dc.SetBrush(wx.Brush("#0066ff"))
+            width = self.GetClientSize().GetWidth() / 4
+            height = self.GetClientSize().GetHeight() / 10
+            self.goalBoxesLock.acquire()
+            for goal in range(0,4):
+                for box in range(0,5):
+                    boxval = self.goalboxes.goals[goal][box]
+                    if boxval == 0:
+                        dc.SetBrush(wx.Brush("#efefef"))
+                    elif boxval == 1:
+                        dc.SetBrush(wx.Brush("#0000ff"))
+                    elif boxval == 2:
+                        dc.SetBrush(wx.Brush("#ff0000"))
+                    dc.DrawRectangle(goal * width, (4- box) * height, width, height)
+                    dc.DrawText("goal" + str(goal) + ",box" + str(box), goal * width,  (4 - box) * height )
+            dc.SetBrush(wx.Brush("#ffff00"))
+            dc.DrawRectangle(self.selected_goal * width, 5 * height, width, height / 10)
+            for i in range(len(self.selected_tags)):
+                next_item = self.selected_tags[i]
+                goal = next_item["Goal"]
+                boxval = next_item["objectType"]
+                tagID = next_item["TagId"]
                 if boxval == 0:
                     dc.SetBrush(wx.Brush("#efefef"))
                 elif boxval == 1:
-                    dc.SetBrush(wx.Brush("#0000ff"))
+                    dc.SetBrush(wx.Brush("#0066ff"))
                 elif boxval == 2:
-                    dc.SetBrush(wx.Brush("#ff0000"))
-                dc.DrawRectangle(goal * width, (4- box) * height, width, height)
-                dc.DrawText("goal" + str(goal) + ",box" + str(box), goal * width,  (4 - box) * height )
-        dc.SetBrush(wx.Brush("#ffff00"))
-        dc.DrawRectangle(self.selected_goal * width, 5 * height, width, height / 10)
-        for i in range(len(self.selected_tags)):
-            next_item = self.selected_tags[i]
-            goal = next_item["Goal"]
-            boxval = next_item["Type"]
-            tagID = next_item["TagId"]
-            if boxval == 0:
-                dc.SetBrush(wx.Brush("#efefef"))
-            elif boxval == 1:
-                dc.SetBrush(wx.Brush("#0066ff"))
-            elif boxval == 2:
-                dc.SetBrush(wx.Brush("#ff6600"))
-            dc.DrawRectangle(goal * width, (5 + i) * height, width, height)
-            dc.DrawText("tagID=" + str(tagID), goal * width, (5 + i) * height)
+                    dc.SetBrush(wx.Brush("#ff6600"))
+                dc.DrawRectangle(goal * width, (5 + i) * height, width, height)
+                dc.DrawText("tagID=" + str(tagID), goal * width, (5 + i) * height)
 
 
-        self.goalBoxesLock.release()
+            self.goalBoxesLock.release()
+        except Exception as e:
+            print ("exception ", e)
 
 
     def OnKeyDown(self, event):
@@ -175,7 +181,7 @@ class Board(wx.Panel):
             if len(self.selected_tags) > 0:
                 next_item = self.selected_tags.pop(0)
                 goal = next_item["Goal"]
-                boxval = next_item["Type"]
+                boxval = next_item["objectType"]
                 self.goalboxes.goals[goal].insert(0, boxval)
         elif keycode == wx.WXK_ESCAPE:
             if len(self.selected_tags) > 0:
