@@ -93,10 +93,12 @@ class VideoPileBridge(object):
     def handle_score(self, channel, data):
         print("Received Score")
         msg = Forseti.Score.decode(data)
+        goldscore = "<color=#FFCC00>{}</color>".format(msg.gold_finalscore)
+        bluescore = "<color=#0134F3>{}</color>".format(msg.blue_finalscore)
         self.send(json.dumps(
                 {
-                    "LeftScore": msg.blue_finalscore,
-                    "RightScore": msg.gold_finalscore,
+                    "LeftScore": goldscore,
+                    "RightScore": bluescore
                     }
                 ))
 
