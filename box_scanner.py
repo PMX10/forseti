@@ -5,6 +5,7 @@ import json
 import cmd
 import atexit
 import random
+import struct
 
 have_GoalReader = 'Maybe'
 try:
@@ -104,6 +105,11 @@ class BoxScanCommander(cmd.Cmd):
         for read in self.reads:
             if read[u'uid'] == tag_id:
                 return read
+
+    def do_reverse_all_bytes(self, rest=''):
+        for read in self.reads:
+            uid_as_int = int(read[u'uid'], 16)
+            read[u'uid'] = '{:x}'.format(struct.unpack('>I', struct.pack('<I', uid_as_int))[0])
 
     def do_read(self, rest=''):
         self.setup_reading_mode()
