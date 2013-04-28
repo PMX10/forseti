@@ -2,14 +2,18 @@
 from __future__ import print_function
 
 import urllib
+import argparse
 import json
 import os.path
 
 match_dir = 'matches'
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--start', type=int, action='store')
+    args = parser.parse_args()
     match_exists = True
-    i = 1
+    i = args.start
     while match_exists:
         print('Getting', i)
         target_base = \
