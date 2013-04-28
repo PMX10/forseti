@@ -472,6 +472,11 @@ class ReactorState(object):
         self._field_state.names_to_count['Unknown'] += 1
         self._idx_to_reader[idx] = 'Unknown'
 
+    def __str__(self):
+        return ('ReactorState< special_ids = {}, '
+               'reader_ids = {}>'.format(self._special_id_to_reader,
+                   self._idx_to_reader))
+
 class FieldState(object):
     def __init__(self, reactors, special_idses):
         self._reactors = {}
@@ -499,6 +504,10 @@ class FieldState(object):
 
     def add_reader(self, reactor, idx):
         return self._reactors[reactor].add_reader(idx)
+
+    def __str__(self):
+        return ('FieldState< substates = {}, ' +
+               'reactor_counts = {} >'.format(self._reactors, self.names_to_count))
 
 
 class Formatter(object):
@@ -536,10 +545,14 @@ class Formatter(object):
         '''
         print("index=" + str(idx))
         print("reader=" + str(self.field_state.reader_of_idx(reactor, idx)))
+        print('Formatting tag read for reactor {}, idx {}, val {}'.format(
+            reactor, idx, new_val))
+        print('Field state:', self.field_state)
         msg = Tag()
         msg.uptime = self.timer.time()
         msg.reader = self.field_state.reader_of_idx(reactor, idx)
         msg.tagId = new_val
+        print('Got reader', msg.reader)
         return msg
 
 
