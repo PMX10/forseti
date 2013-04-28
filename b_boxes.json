@@ -1,0 +1,212 @@
+[
+ {
+  "tagId": 763287927, 
+  "readerType": "pcProx", 
+  "uid": "2d7ed977", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 744158071, 
+  "readerType": "pcProx", 
+  "uid": "2c5af377", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 744100751, 
+  "readerType": "pcProx", 
+  "uid": "2c5a138f", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 761851615, 
+  "readerType": "pcProx", 
+  "uid": "2d68eedf", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 743385367, 
+  "readerType": "pcProx", 
+  "uid": "2c4f2917", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 761711863, 
+  "readerType": "pcProx", 
+  "uid": "2d66ccf7", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 762415063, 
+  "readerType": "pcProx", 
+  "uid": "2d7187d7", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 428179519, 
+  "readerType": "pcProx", 
+  "uid": "1985803f", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 761863703, 
+  "readerType": "pcProx", 
+  "uid": "2d691e17", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 761719423, 
+  "readerType": "pcProx", 
+  "uid": "2d66ea7f", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 762347207, 
+  "readerType": "pcProx", 
+  "uid": "2d707ec7", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 428127879, 
+  "readerType": "pcProx", 
+  "uid": "1984b687", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 742073039, 
+  "readerType": "pcProx", 
+  "uid": "2c3b22cf", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 374131575, 
+  "readerType": "pcProx", 
+  "uid": "164ccb77", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 762406015, 
+  "readerType": "pcProx", 
+  "uid": "2d71647f", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 743461311, 
+  "readerType": "pcProx", 
+  "uid": "2c5051bf", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 761940039, 
+  "readerType": "pcProx", 
+  "uid": "2d6a4847", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763853751, 
+  "readerType": "pcProx", 
+  "uid": "2d877bb7", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763779223, 
+  "readerType": "pcProx", 
+  "uid": "2d865897", 
+  "objectId": 3, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 742643071, 
+  "readerType": "pcProx", 
+  "uid": "2c43d57f", 
+  "objectId": 3, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763920263, 
+  "readerType": "pcProx", 
+  "uid": "2d887f87", 
+  "objectId": 3, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 743418655, 
+  "readerType": "pcProx", 
+  "uid": "2c4fab1f", 
+  "objectId": 3, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 742602567, 
+  "readerType": "pcProx", 
+  "uid": "2c433747", 
+  "objectId": 3, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763786671, 
+  "readerType": "pcProx", 
+  "uid": "2d8675af", 
+  "objectId": 3, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763740927, 
+  "readerType": "pcProx", 
+  "uid": "2d85c2ff", 
+  "objectId": 4, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 762434319, 
+  "readerType": "pcProx", 
+  "uid": "2d71d30f", 
+  "objectId": 4, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 762432823, 
+  "readerType": "pcProx", 
+  "uid": "2d71cd37", 
+  "objectId": 4, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 761844743, 
+  "readerType": "pcProx", 
+  "uid": "2d68d407", 
+  "objectId": 4, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 428177351, 
+  "readerType": "pcProx", 
+  "uid": "198577c7", 
+  "objectId": 4, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763250927, 
+  "readerType": "pcProx", 
+  "uid": "2d7e48ef", 
+  "objectId": 4, 
+  "objectType": 1
+ }
+]

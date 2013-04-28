@@ -294,15 +294,15 @@ class Schedule(LCMNode):
         i = 1
         for filename in os.listdir(self.matches_dir):
             try:
-                i = int(filename.split('.')[-2])
-            except IndexError:
-                i = random.getrandbits(31)
-            with open(os.path.join(self.matches_dir, filename)) as wfile:
                 try:
+                    i = int(filename.split('.')[-2])
+                except IndexError:
+                    i = random.getrandbits(31)
+                with open(os.path.join(self.matches_dir, filename)) as wfile:
                     self.matches[i] = json.load(wfile)
                     self.load_team_names(self.matches[i])
-                except Exception:
-                    print('Could not load match', filename)
+            except Exception:
+                print('Could not load match', filename)
 
     def send_schedule(self):
         schedule = Forseti.Schedule()
