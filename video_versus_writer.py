@@ -56,18 +56,16 @@ class VersusWriter(object):
         self.versus_text_lock.acquire()
 
         self.versusText.RightAllianceText = (
-            str(msg.team_numbers[0]) + ":" +
-            str(msg.team_names[0]) +
+            "<size=42>" +
+            str(msg.team_names[0]) +" (" + str(msg.team_numbers[0]) + ")" +
             "\n" +
-            str(msg.team_numbers[1]) + ":" +
-            str(msg.team_names[1]))
+            str(msg.team_names[1]) +" (" + str(msg.team_numbers[1]) + ") </size>")
 
         self.versusText.LeftAllianceText = (
-            str(msg.team_numbers[2]) + ":" +
-            str(msg.team_names[2]) +
+            "<size=42>" +
+            str(msg.team_names[2]) +" (" + str(msg.team_numbers[2]) + ")" +
             "\n" +
-            str(msg.team_numbers[3]) + ":" +
-            str(msg.team_names[3]))
+            str(msg.team_names[3]) +" (" + str(msg.team_numbers[3]) + ") </size>")
 
         self.versusText.MatchText = "Match " + str(msg.match_number)
         self.versus_text_lock.release()
