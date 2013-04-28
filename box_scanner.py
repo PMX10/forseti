@@ -18,6 +18,15 @@ except ImportError:
 MULTIPLY = 2
 ADD = 1
 
+def extract_reads(reads, objectId):
+    out = []
+    i = 0
+    while i < len(reads):
+        if reads[i].get(u'objectId', -1) == objectId:
+            out.append(reads.pop(i))
+        else:
+            i += 1
+    return out
 
 class BoxScanCommander(cmd.Cmd):
 
@@ -106,6 +115,26 @@ class BoxScanCommander(cmd.Cmd):
         try:
             with open(filename, 'r') as f:
                 self.add_reads(json.load(f))
+        except IOError as e:
+            print('Could not open "{}".'.format(filename))
+            print('Received error {}.'.format(e))
+
+    def do_append(self, filename):
+        try:
+            with open(filename, 'r') as f:
+                new_reads = json.load(f)
+                i = 0
+                while True:
+                    current_reads = extract_reads(new_reads, i)
+                    if not current_reads:
+                        #print('Exiting, i =', i)
+                        break
+                    for read in current_reads:
+                        read[u'objectId'] = self.current_box
+                    #print(current_reads)
+                    self.add_reads(current_reads)
+                    self.current_box += 1
+                    i += 1
         except IOError as e:
             print('Could not open "{}".'.format(filename))
             print('Received error {}.'.format(e))

@@ -1,0 +1,37 @@
+[
+ {
+  "tagId": 428162231, 
+  "readerType": "pcProx", 
+  "uid": "19853cb7", 
+  "objectId": 0, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 763522503, 
+  "readerType": "pcProx", 
+  "uid": "2d826dc7", 
+  "objectId": 1, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 381841343, 
+  "readerType": "pcProx", 
+  "uid": "16c26fbf", 
+  "objectId": 2, 
+  "objectType": 1
+ }, 
+ {
+  "tagId": 381900399, 
+  "readerType": "pcProx", 
+  "uid": "16c3566f", 
+  "objectId": 3, 
+  "objectType": 2
+ }, 
+ {
+  "tagId": 743447383, 
+  "readerType": "pcProx", 
+  "uid": "2c501b57", 
+  "objectId": 4, 
+  "objectType": 2
+ }
+]
