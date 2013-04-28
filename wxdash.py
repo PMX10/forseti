@@ -7,6 +7,7 @@ import threading
 import lcm
 import random
 import Forseti
+import configurator
 
 BLUE = (24, 25, 141)
 GOLD = (241, 169, 50)
@@ -26,13 +27,17 @@ class TeamPanel(wx.Panel):
         dc = wx.ScreenDC()
         self.num_ctrl = wx.TextCtrl(self, size=(dc.GetCharWidth() * 2, dc.GetCharHeight()))
         self.num_ctrl.AppendText(str(number))
+        self.get_button = wx.Button(self, label='Get', size=(dc.GetCharWidth() * 2, dc.GetCharHeight()))
+        self.get_button.Bind(wx.EVT_BUTTON, self.do_get_name)
         self.name_ctrl = wx.TextCtrl(self, size=(dc.GetCharWidth() * 16,
             dc.GetCharHeight()))
         self.name_ctrl.AppendText(name)
 
         name_num_box = wx.BoxSizer(wx.HORIZONTAL)
-        name_num_box.Add(wx.StaticText(self, label=letter))
+        name_num_box.Add(wx.StaticText(self, label=letter,
+            size=(dc.GetCharWidth() * 0.6, dc.GetCharHeight())))
         name_num_box.Add(self.num_ctrl)
+        name_num_box.Add(self.get_button)
         name_num_box.Add(self.name_ctrl)
 
         #button_box = wx.BoxSizer(wx.HORIZONTAL)
@@ -46,6 +51,9 @@ class TeamPanel(wx.Panel):
 
         self.SetSizer(self.vbox)
         self.Show(True)
+
+    def do_get_name(self, event):
+        self.name = configurator.get_team_name(self.number)
 
     @property
     def name(self):
