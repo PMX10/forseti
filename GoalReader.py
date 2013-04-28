@@ -296,10 +296,10 @@ class Server(SocketServer.UDPServer):
         #self.grizzlies = RandomTestReaderReactor(self.read_sender.respond)
 
         grizzly_special_ids = {
-            299738614:'A',
-            300432102:'B',
-            299078422:'C',
-            300136398:'D',
+            0x23bb4bed:'A',
+            0x23d075cd:'B',
+            0x23a7262d:'C',
+            0x23c76f9d:'D',
         }
         pcproxen_special_ids = {
             301040998:'Dispense',
@@ -383,12 +383,13 @@ class TagReadSender(object):
         #self.lc = lcm.LCM("udpm://239.255.76.67:7667?ttl=1")
 
     def respond(self, reactor, idx, new_val):
+        print ("tag read!" + str(new_val))
         if self.field_state.is_special_id(reactor, new_val):
             self.field_state.update_reader_map(reactor, idx, new_val)
         else:
             msg = self.formatter.format_tag_read(reactor, idx, new_val)
             #self.lc.publish("GoalReader/Tags", msg.encode());
-            #self.server.publish("GoalReader/Tags", msg.encode());
+            #self.server.publish("GoalRea1der/Tags", msg.encode());
             self.server.send("GoalReader/Tags", msg)
             self.repeater.push_send(msg.tagId, msg)
             '''
@@ -533,6 +534,8 @@ class Formatter(object):
                 'TagID': unicode(new_val) }
         return json.dumps(obj)
         '''
+        print("index=" + str(idx))
+        print("reader=" + str(self.field_state.reader_of_idx(reactor, idx)))
         msg = Tag()
         msg.uptime = self.timer.time()
         msg.reader = self.field_state.reader_of_idx(reactor, idx)

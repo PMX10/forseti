@@ -4,5 +4,5 @@ struct Tag
 {
     double uptime;
     string reader;
-    int32_t tagId;
+    int64_t tagId;
 }
