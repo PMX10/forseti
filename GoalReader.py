@@ -158,8 +158,8 @@ class GrizzlyReaderReactor(ReaderReactor):
             usb_lock.acquire()
             card_id = dev.ctrl_transfer(0xa1, 0x01, 0x0300, 0, 4)
             unpacked = self.id_format.unpack(card_id)[0]
-            unpacked >>= 1
-            unpacked &= ~0xc0000000
+            #unpacked >>= 1
+            #unpacked &= ~0xc0000000
             if debug_reads and unpacked and unpacked != self.last_ids[self.readers.index(dev)]:
                 reved = array.array('B', map(self._reverse_byte, card_id))
                 print('Grizzly Read:', card_id, 'Reversed:', reved)
@@ -219,6 +219,7 @@ class PcProxReaderReactor(ReaderReactor):
     def get_id(self, dev):
         card_id = self._exchange_bytes(dev, self.CMD_GET_CARD_ID)[:4]
         unpacked = self.id_format.unpack(card_id)[0]
+        unpacked <<= 1
         if debug_reads and unpacked and unpacked != self.last_ids[self.readers.index(dev)]:
             reved = array.array('B', map(self._reverse_byte, card_id))
             print('pcProx Read:', card_id, 'Reversed:', reved)
